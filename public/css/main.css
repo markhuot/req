@@ -1,0 +1,51 @@
+* {
+	margin: 0;
+	padding: 0;
+	line-height: 1;
+	box-sizing: border-box;
+}
+
+body {
+	background: whiteSmoke;
+	font-family: "Helvetica Neue";
+	font-weight: 300;
+	font-size: 12px;
+}
+
+.content {
+	margin: 50px;
+	float: left;
+	width: 60%;
+}
+
+.sidebar {
+	float: right;
+	width: 30%;
+}
+
+.requirement__title--large {
+	font-weight: 200;
+}
+
+.timeline {
+	border-left: 2px solid #ccc;
+	padding-left: 20px;
+}
+
+.timeline__icon {
+	width: 28px;
+	height: 28px;
+	font-size: 14px;
+	padding: 5px;
+	border-radius: 50%;
+	border: 2px solid whiteSmoke;
+	background: blue;
+	color: #fff;
+	overflow: hidden;
+	float: left;
+	margin-left: -34px;
+}
+
+.timeline__icon__label {
+	visibility: hidden;
+}

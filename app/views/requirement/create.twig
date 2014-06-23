@@ -1,0 +1,14 @@
+{% extends "layouts/default.twig" %}
+
+{% block content %}
+<form action="{{ url_route('requirement.store') }}" method="post">
+	<p>
+		<label for="requirement-body">Requirement</label>
+		<textarea id="requirement-body" name="requirement[body]"></textarea>
+	</p>
+	<p>
+		<button>Save</button>
+		<button name="action" value="addMore">Save and Add Another</button>
+	</p>
+</form>
+{% endblock %}
