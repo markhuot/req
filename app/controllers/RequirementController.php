@@ -19,7 +19,7 @@ class RequirementController extends BaseController {
     $requirement->save();
 
     switch(Input::get('action')) {
-      case 'addAnother':
+      case 'addMore':
         return Redirect::route('requirement.create');
       break;
 
