@@ -22,11 +22,20 @@
 								<span class="timeline__meta__label__date">{{ comment.created_at.diffForHumans }}</span>
 							</p>
 						</div>
-						{{ comment.body }}
+						{% if comment.body %}
+						<div class="comment__body">
+							{{ comment.body }}
+						</div>
+						{% endif %}
+						{% if comment.notifications.first.notes %}
+						<div class="comment__notes">
+							{{ comment.notifications.first.notes }}
+						</div>
+						{% endif %}
 					</div>
 				{% endfor %}
 			</div>
-			<form class="timeline__item comment" action="{{ url_route('requirement.comment.store', requirement.id) }}" method="post">
+			<form class="timeline__item comment-form" action="{{ url_route('requirement.comment.store', requirement.id) }}" method="post">
 				<div class="timeline__meta">
 					<i class="fa fa-comment timeline__meta__icon"></i>
 					<p class="timeline__meta__label">
@@ -34,18 +43,23 @@
 						<span class="timeline__meta__label__date">now</span>
 					</p>
 				</div>
-				<p>
-					<input type="radio" name="requirement[status]" value="pending" id="requirement-status-pending" {{ requirement.status=='pending'?'checked="checked"':'' }} /> <label for="requirement-status-pending">Pending</label> &rarr;
-					<input type="radio" name="requirement[status]" value="accepted" id="requirement-status-accepted" {{ requirement.status=='accepted'?'checked="checked"':'' }} /> <label for="requirement-status-accepted">Accepted</label> or
-					<input type="radio" name="requirement[status]" value="rejected" id="requirement-status-rejected" {{ requirement.status=='rejected'?'checked="checked"':'' }} /> <label for="requirement-status-rejected">Rejected</label> &rarr;
-					<input type="radio" name="requirement[status]" value="delivered" id="requirement-status-delivered" {{ requirement.status=='delivered'?'checked="checked"':'' }} /> <label for="requirement-status-delivered">Delivered</label> &rarr;
-					<input type="radio" name="requirement[status]" value="closed" id="requirement-status-closed" {{ requirement.status=='closed'?'checked="checked"':'' }} /> <label for="requirement-status-closed">Closed</label>
+				<p class="comment-form__item comment-form__status">
+					<span class="comment-form__status__step"><input type="radio" name="requirement[status]" value="pending" id="requirement-status-pending" {{ requirement.status=='pending'?'checked="checked"':'' }} /> <label for="requirement-status-pending" class="status-bg-pending">Pending</label></span>
+					<span class="comment-form__status__rarr"><i class="fa fa-arrow-right"></i></span>
+					<span class="comment-form__status__step">
+						<input type="radio" name="requirement[status]" value="accepted" id="requirement-status-accepted" {{ requirement.status=='accepted'?'checked="checked"':'' }} data-toggle-trigger="accepted" /> <label for="requirement-status-accepted" class="status-bg-accepted">Accepted</label> or
+						<input type="radio" name="requirement[status]" value="rejected" id="requirement-status-rejected" {{ requirement.status=='rejected'?'checked="checked"':'' }} data-toggle-trigger="rejected" /> <label for="requirement-status-rejected" class="status-bg-rejected">Rejected</label>
+					</span>
+					<span class="comment-form__status__rarr comment-form__status__step--conditional" data-toggle-reciever="accepted"><i class="fa fa-arrow-right"></i></span>
+					<span class="comment-form__status__step comment-form__status__step--conditional" data-toggle-reciever="accepted"><input type="radio" name="requirement[status]" value="delivered" id="requirement-status-delivered" {{ requirement.status=='delivered'?'checked="checked"':'' }} data-toggle-trigger="accepted" /> <label for="requirement-status-delivered" class="status-bg-delivered">Delivered</label></span>
+					<span class="comment-form__status__rarr comment-form__status__step--conditional" data-toggle-reciever="accepted"><i class="fa fa-arrow-right"></i></span>
+					<span class="comment-form__status__step comment-form__status__step--conditional" data-toggle-reciever="accepted"><input type="radio" name="requirement[status]" value="closed" id="requirement-status-closed" {{ requirement.status=='closed'?'checked="checked"':'' }} data-toggle-trigger="accepted" /> <label for="requirement-status-closed" class="status-bg-closed">Closed</label></span>
 				</p>
-				<p>
+				<p class="comment-form__item">
 					<label for="requirement-body">Comment</label>
 					<textarea id="requirement-body" name="comment[body]"></textarea>
 				</p>
-				<p>
+				<p class="comment-form__item">
 					<label for="requirement-assignment">Assign</label>
 					<select multiple="multiple" id="requirement-assignment">
 						<option>one</option>
@@ -53,7 +67,11 @@
 						<option>three</option>
 					</select>
 				</p>
-				<p>
+				<div class="comment-form__item">
+					<label for="requirement-notify">Notify</label>
+					<p>We'll let <a href="#">John, Jack, and Mary</a> know about this comment.</p>
+				</div>
+				<p class="comment-form__item">
 					<button>Add Comment</button>
 				</p>
 			</form>
@@ -77,4 +95,25 @@
 <ul>
 	<li><a href="#">Test</a></li>
 </ul>
+{% endblock %}
+
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).on('change', 'input:radio', function() {
+		$('[data-checked]').removeAttr('data-checked').trigger('change');
+		var key = $(this).data('toggle-trigger');
+		if (!key) return;
+
+		var className = $(this).data('toggle-class') || 'visible';
+		if ($(this).is(':checked')) {
+			$('[data-toggle-reciever="'+key+'"]').addClass(className);
+			$(this).attr('data-checked', 'true');
+		}
+		else {
+			$('[data-toggle-reciever="'+key+'"]').removeClass(className);
+		}
+	});
+	$('input:radio:checked').trigger('change');
+</script>
 {% endblock %}

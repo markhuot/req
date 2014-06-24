@@ -25,6 +25,116 @@ body {
   font-weight: 200;
   line-height: 1.5; }
 
+.comment__body {
+  margin-bottom: 0.5em; }
+
+.comment__notes {
+  color: #999;
+  font-size: 12px; }
+
+.comment-form label {
+  display: block;
+  margin-bottom: 0.5em; }
+.comment-form textarea {
+  width: 100%;
+  height: 15em; }
+.comment-form .timeline__meta__icon {
+  color: #34f269; }
+
+.comment-form__item {
+  margin-bottom: 1.5em; }
+
+.comment-form__status {
+  color: #999; }
+  .comment-form__status input[type="radio"] {
+    position: absolute;
+    left: -9999px; }
+  .comment-form__status input[type="radio"] + label {
+    border-radius: 40px;
+    padding: 3px 7px 4px 4px;
+    display: inline;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    background: none;
+    border-width: 1px;
+    border-style: solid; }
+    .comment-form__status input[type="radio"] + label:before {
+      content: "";
+      display: inline-block;
+      margin-right: 0.5em;
+      margin-bottom: -0.25em;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border-width: 1px;
+      border-style: solid;
+      border-color: inherit;
+      background: #fff; }
+  .comment-form__status input[type="radio"]:checked + label {
+    color: #fff; }
+    .comment-form__status input[type="radio"]:checked + label.status-bg-pending {
+      background: #DFCC27; }
+    .comment-form__status input[type="radio"]:checked + label.status-bg-accepted {
+      background: #80F228; }
+    .comment-form__status input[type="radio"]:checked + label.status-bg-rejected {
+      background: #E93328; }
+    .comment-form__status input[type="radio"]:checked + label.status-bg-delivered {
+      background: #34b0f0; }
+    .comment-form__status input[type="radio"]:checked + label.status-bg-closed {
+      background: grey; }
+    .comment-form__status input[type="radio"]:checked + label:before {
+      background: inherit;
+      border-color: #fff; }
+  .comment-form__status:after {
+    content: "";
+    display: table;
+    clear: both; }
+
+.comment-form__status__step {
+  float: left;
+  line-height: 1.5em; }
+  .comment-form__status__step input {
+    float: left;
+    clear: left;
+    margin: 0 1em 0 0; }
+  .comment-form__status__step label {
+    font-size: 12px;
+    text-transform: uppercase; }
+
+.comment-form__status__step--conditional {
+  opacity: 0.25; }
+  .comment-form__status__step--conditional.visible {
+    opacity: 1; }
+
+.comment-form__status__rarr {
+  float: left;
+  margin: 0 10px; }
+
+.status-bg-pending {
+  color: #DFCC27;
+  background: #DFCC27;
+  border-color: #DFCC27; }
+
+.status-bg-accepted {
+  color: #80F228;
+  background: #80F228;
+  border-color: #80F228; }
+
+.status-bg-rejected {
+  color: #E93328;
+  background: #E93328;
+  border-color: #E93328; }
+
+.status-bg-delivered {
+  color: #34b0f0;
+  background: #34b0f0;
+  border-color: #34b0f0; }
+
+.status-bg-closed {
+  color: grey;
+  background: grey;
+  border-color: grey; }
+
 .timeline {
   background: #fff;
   font-size: 14px; }

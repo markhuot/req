@@ -40,23 +40,12 @@ class RequirementController extends BaseController {
     $requirement->fill(Input::get('requirement'));
 
     $notes = [];
-
     if (Input::get('comment.body')) {
       $notes[] = 'added a comment';
     }
-
     foreach ($requirement->getDirty() as $key => $value) {
       $original = $requirement->getOriginal($key);
       $notes[] = 'updated '.$key.' from '.$original.' to '.$value;
-    }
-
-    if ($notes) {
-      $notification = new Notification;
-      $notification->user_id = 1;
-      $notification->object = 'Requirement';
-      $notification->object_key = $requirement->id;
-      $notification->notes = implode(', ', $notes);
-      $notification->save();
     }
 
     $requirement->save();
@@ -64,6 +53,17 @@ class RequirementController extends BaseController {
     $comment = new Comment;
     $comment->fill(Input::get('comment'));
     $requirement->comments()->save($comment);
+
+    if ($notes) {
+      $notification = new Notification;
+      $notification->user_id = 1;
+      $notification->parent = 'Requirement';
+      $notification->parent_key = $requirement->id;
+      $notification->initiator = 'Comment';
+      $notification->initiator_key = $comment->id;
+      $notification->notes = implode(', ', $notes);
+      $notification->save();
+    }
 
     return Redirect::route('requirement.show', $requirement->id);
   }

@@ -12,8 +12,12 @@ body {
 	font-size: 12px;
 }
 
+$blue: #34b0f0;
+
 @import "wrap";
 @import "requirement";
+@import "comment";
+@import "comment-form";
 @import "timeline";
 @import "header";
 @import "content";

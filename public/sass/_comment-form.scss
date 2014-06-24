@@ -1,0 +1,108 @@
+.comment-form {
+	label {
+		display: block;
+		margin-bottom: 0.5em;
+	}
+
+	textarea {
+		width: 100%;
+		height: 15em;
+	}
+
+	.timeline__meta__icon {
+		color: #34f269;
+	}
+}
+
+.comment-form__item {
+	margin-bottom: 1.5em;
+}
+
+.comment-form__status {
+	color: #999;
+
+	input[type="radio"] {
+		position: absolute;
+		left: -9999px;
+	}
+
+	input[type="radio"] + label {
+		$button-size: 12px;
+		border-radius: 40px;
+		padding: 3px 7px 4px 4px;
+		display: inline;
+		font-weight: 500;
+		letter-spacing: 0.5px;
+		background: none;
+		border-width: 1px;
+		border-style: solid;
+
+		&:before {
+			content: "";
+			display: inline-block;
+			margin-right: 0.5em;
+			margin-bottom: -0.25em;
+			width: $button-size;
+			height: $button-size;
+			border-radius: 50%;
+			border-width: 1px;
+			border-style: solid;
+			border-color: inherit;
+			background: #fff;
+		}
+	}
+
+	input[type="radio"]:checked + label {
+		color: #fff;
+
+		&.status-bg-pending { background: #DFCC27; }
+		&.status-bg-accepted { background: #80F228; }
+		&.status-bg-rejected { background: #E93328; }
+		&.status-bg-delivered { background: $blue; }
+		&.status-bg-closed { background: grey; }
+
+		&:before {
+			background: inherit;
+			border-color: #fff;
+		}
+	}
+
+	&:after {
+		content:"";
+		display: table;
+		clear: both;
+	}
+}
+
+.comment-form__status__step {
+	float: left;
+	line-height: 1.5em;
+	input {
+		float: left;
+		clear: left;
+		margin: 0 1em 0 0;
+	}
+	label {
+		font-size: 12px;
+		text-transform: uppercase;
+	}
+}
+
+.comment-form__status__step--conditional {
+	opacity: 0.25;
+
+	&.visible {
+		opacity: 1;
+	}
+}
+
+.comment-form__status__rarr {
+	float: left;
+	margin: 0 10px;
+}
+
+.status-bg-pending { color: #DFCC27; background: #DFCC27; border-color: #DFCC27; }
+.status-bg-accepted { color: #80F228; background: #80F228; border-color: #80F228; }
+.status-bg-rejected { color: #E93328; background: #E93328; border-color: #E93328; }
+.status-bg-delivered { color: $blue; background: $blue; border-color: $blue; }
+.status-bg-closed { color: grey; background: grey; border-color: grey; }

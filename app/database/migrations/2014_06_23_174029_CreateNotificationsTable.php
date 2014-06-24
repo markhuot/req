@@ -16,8 +16,19 @@ class CreateNotificationsTable extends Migration {
     {
       $table->increments('id');
       $table->unsignedInteger('user_id');
-      $table->string('object');
-      $table->unsignedInteger('object_key');
+
+      /**
+       * The parent is the object this notification relates to.
+       */
+      $table->string('parent');
+      $table->unsignedInteger('parent_key');
+
+      /**
+       * The initiator is the object that caused this notification to be
+       * sent.
+       */
+      $table->string('initiator');
+      $table->unsignedInteger('initiator_key');
       $table->string('notes');
       $table->timestamps();
 
