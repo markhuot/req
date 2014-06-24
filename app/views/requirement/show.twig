@@ -1,45 +1,64 @@
 {% extends "layouts/default.twig" %}
 
 {% block content %}
-<h1 class="requirement__title--large">{{ requirement.title }}</h1>
+<div class="wrap">
+	<div class="content__body">
+		<h1 class="requirement__title--full">{{ requirement.title }}</h1>
+		<div class="requirement__body--full">
+			{{ requirement.body }}
+		</div>
+	</div>
+</div>
 <div class="timeline">
-	<div class="requirement__body--full">
-		<div class="timeline__icon"><i class="fa fa-align-center"></i> <span class="timeline__icon__label">Requirement</span></div>
-		{{ requirement.body }}
-	</div>
-	<div class="comments">
-		{% for comment in requirement.comments %}
-			<div class="comment">
-				<div class="timeline__icon"><i class="fa fa-comment"></i> <span class="timeline__icon__label">Comment</span></div>
-				{{ comment.body }}
+	<div class="wrap">
+		<div class="timeline__body">
+			<div class="comments">
+				{% for comment in requirement.comments %}
+					<div class="timeline__item comment">
+						<div class="timeline__meta">
+							<i class="fa fa-comment timeline__meta__icon"></i>
+							<p class="timeline__meta__label">
+								<span class="timeline__meta__label__author">Mark Huot</span>
+								<span class="timeline__meta__label__date">{{ comment.created_at.diffForHumans }}</span>
+							</p>
+						</div>
+						{{ comment.body }}
+					</div>
+				{% endfor %}
 			</div>
-		{% endfor %}
+			<form class="timeline__item comment" action="{{ url_route('requirement.comment.store', requirement.id) }}" method="post">
+				<div class="timeline__meta">
+					<i class="fa fa-comment timeline__meta__icon"></i>
+					<p class="timeline__meta__label">
+						<span class="timeline__meta__label__author">Mark Huot</span>
+						<span class="timeline__meta__label__date">now</span>
+					</p>
+				</div>
+				<p>
+					<input type="radio" name="requirement[status]" value="pending" id="requirement-status-pending" {{ requirement.status=='pending'?'checked="checked"':'' }} /> <label for="requirement-status-pending">Pending</label> &rarr;
+					<input type="radio" name="requirement[status]" value="accepted" id="requirement-status-accepted" {{ requirement.status=='accepted'?'checked="checked"':'' }} /> <label for="requirement-status-accepted">Accepted</label> or
+					<input type="radio" name="requirement[status]" value="rejected" id="requirement-status-rejected" {{ requirement.status=='rejected'?'checked="checked"':'' }} /> <label for="requirement-status-rejected">Rejected</label> &rarr;
+					<input type="radio" name="requirement[status]" value="delivered" id="requirement-status-delivered" {{ requirement.status=='delivered'?'checked="checked"':'' }} /> <label for="requirement-status-delivered">Delivered</label> &rarr;
+					<input type="radio" name="requirement[status]" value="closed" id="requirement-status-closed" {{ requirement.status=='closed'?'checked="checked"':'' }} /> <label for="requirement-status-closed">Closed</label>
+				</p>
+				<p>
+					<label for="requirement-body">Comment</label>
+					<textarea id="requirement-body" name="comment[body]"></textarea>
+				</p>
+				<p>
+					<label for="requirement-assignment">Assign</label>
+					<select multiple="multiple" id="requirement-assignment">
+						<option>one</option>
+						<option>two</option>
+						<option>three</option>
+					</select>
+				</p>
+				<p>
+					<button>Add Comment</button>
+				</p>
+			</form>
+		</div>
 	</div>
-	<form class="comment" action="{{ url_route('requirement.comment.store', requirement.id) }}" method="post">
-		<div class="timeline__icon"><i class="fa fa-comment"></i> <span class="timeline__icon__label">Comment</span></div>
-		<p>
-			<input type="radio" name="requirement[status]" value="pending" id="requirement-status-pending" {{ requirement.status=='pending'?'checked="checked"':'' }} /> <label for="requirement-status-pending">Pending</label> &rarr;
-			<input type="radio" name="requirement[status]" value="accepted" id="requirement-status-accepted" {{ requirement.status=='accepted'?'checked="checked"':'' }} /> <label for="requirement-status-accepted">Accepted</label> or
-			<input type="radio" name="requirement[status]" value="rejected" id="requirement-status-rejected" {{ requirement.status=='rejected'?'checked="checked"':'' }} /> <label for="requirement-status-rejected">Rejected</label> &rarr;
-			<input type="radio" name="requirement[status]" value="delivered" id="requirement-status-delivered" {{ requirement.status=='delivered'?'checked="checked"':'' }} /> <label for="requirement-status-delivered">Delivered</label> &rarr;
-			<input type="radio" name="requirement[status]" value="closed" id="requirement-status-closed" {{ requirement.status=='closed'?'checked="checked"':'' }} /> <label for="requirement-status-closed">Closed</label>
-		</p>
-		<p>
-			<label for="requirement-body">Comment</label>
-			<textarea id="requirement-body" name="comment[body]"></textarea>
-		</p>
-		<p>
-			<label for="requirement-assignment">Assign</label>
-			<select multiple="multiple" id="requirement-assignment">
-				<option>one</option>
-				<option>two</option>
-				<option>three</option>
-			</select>
-		</p>
-		<p>
-			<button>Add Comment</button>
-		</p>
-	</form>
 </div>
 {% endblock %}
 

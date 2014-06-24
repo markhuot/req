@@ -1,51 +1,89 @@
 * {
-	margin: 0;
-	padding: 0;
-	line-height: 1;
-	box-sizing: border-box;
-}
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  box-sizing: border-box; }
 
 body {
-	background: whiteSmoke;
-	font-family: "Helvetica Neue";
-	font-weight: 300;
-	font-size: 12px;
-}
+  background: whiteSmoke;
+  font-family: "Helvetica Neue";
+  font-weight: 300;
+  font-size: 12px; }
 
-.content {
-	margin: 50px;
-	float: left;
-	width: 60%;
-}
+.wrap {
+  width: 800px;
+  margin: 0 auto;
+  position: relative; }
 
-.sidebar {
-	float: right;
-	width: 30%;
-}
+.requirement__title--full {
+  font-weight: 400;
+  font-size: 22px;
+  margin-bottom: 1em; }
 
-.requirement__title--large {
-	font-weight: 200;
-}
+.requirement__body--full {
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 1.5; }
 
 .timeline {
-	border-left: 2px solid #ccc;
-	padding-left: 20px;
-}
+  background: #fff;
+  font-size: 14px; }
 
-.timeline__icon {
-	width: 28px;
-	height: 28px;
-	font-size: 14px;
-	padding: 5px;
-	border-radius: 50%;
-	border: 2px solid whiteSmoke;
-	background: blue;
-	color: #fff;
-	overflow: hidden;
-	float: left;
-	margin-left: -34px;
-}
+.timeline__body {
+  padding: 40px 0 40px 180px; }
+  .timeline__body:after {
+    content: "";
+    border-left: 1px solid #eee;
+    position: absolute;
+    top: 0;
+    left: 150px;
+    height: 100%;
+    width: 0; }
 
-.timeline__icon__label {
-	visibility: hidden;
-}
+.timeline__item {
+  clear: left;
+  padding: 20px 0; }
+
+.timeline__meta {
+  width: 150px;
+  position: relative;
+  float: left;
+  margin-left: -180px;
+  text-align: right;
+  padding-right: 30px; }
+
+.timeline__meta__icon {
+  color: #34b0f0;
+  background: #fff;
+  padding: 5px 0;
+  position: absolute;
+  right: -0.55em;
+  top: -5px;
+  z-index: 1; }
+
+.timeline__meta__label__author {
+  display: block;
+  margin-bottom: 0.5em; }
+
+.timeline__meta__label__date {
+  font-style: italic;
+  display: block;
+  color: #ccc;
+  margin-bottom: 0.5em; }
+
+.header {
+  background: #2b303a;
+  color: rgba(255, 255, 255, 0.75); }
+  .header a {
+    color: inherit; }
+  .header .header__title {
+    font-weight: 200;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px; }
+
+.header__body {
+  padding: 50px 0; }
+
+.content__body {
+  padding: 50px 0; }

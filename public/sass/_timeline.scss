@@ -1,0 +1,59 @@
+$meta-width: 150px;
+$meta-padding: 30px;
+
+.timeline {
+	background: #fff;
+	font-size: 14px;
+}
+
+.timeline__body {
+	padding: 40px 0 40px $meta-width+$meta-padding;
+
+	&:after {
+		content: "";
+		border-left: 1px solid #eee;
+		position: absolute;
+		top: 0;
+		left: $meta-width;
+		height: 100%;
+		width: 0;
+	}
+}
+
+.timeline__item {
+	clear: left;
+	padding: 20px 0;
+}
+
+.timeline__meta {
+	width: $meta-width;
+	position: relative;
+	float: left;
+	margin-left: -$meta-width - $meta-padding;
+	text-align: right;
+	padding-right: $meta-padding;
+}
+
+.timeline__meta__icon {
+	$spacing: 5px;
+
+	color: #34b0f0;
+	background: #fff;
+	padding: $spacing 0;
+	position: absolute;
+	right: -0.55em;
+	top: -$spacing;
+	z-index: 1;
+}
+
+.timeline__meta__label__author {
+	display: block;
+	margin-bottom: 0.5em;
+}
+
+.timeline__meta__label__date {
+	font-style: italic;
+	display: block;
+	color: #ccc;
+	margin-bottom: 0.5em;
+}
