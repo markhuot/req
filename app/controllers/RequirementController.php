@@ -2,17 +2,17 @@
 
 class RequirementController extends BaseController {
 
-  public function index()
+  public function index(Account $account)
   {
 
   }
 
-  public function create()
+  public function create(Account $account)
   {
     return View::make('requirement.create');
   }
 
-  public function store()
+  public function store(Account $account)
   {
     $requirement = new Requirement;
     $requirement->fill(Input::get('requirement'));
@@ -28,14 +28,14 @@ class RequirementController extends BaseController {
     }
   }
 
-  public function show(Requirement $requirement)
+  public function show(Account $account, Requirement $requirement)
   {
     return View::make('requirement.show')
       ->with('requirement', $requirement)
     ;
   }
 
-  public function storeComment(Requirement $requirement)
+  public function storeComment(Account $account, Requirement $requirement)
   {
     $requirement->fill(Input::get('requirement'));
 

@@ -1,0 +1,7 @@
+<form method="post" action="{{ url_route('login.post', account) }}">
+	<input type="text" name="user[email]" value="" placeholder="email..." />
+	<input type="text" name="user[password]" value="" placeholder="password..." />
+	<input type="submit" />
+</form>
+
+<a href="{{ url_route('register', account.subdomain) }}">Register</a>

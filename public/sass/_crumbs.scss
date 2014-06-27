@@ -1,0 +1,21 @@
+.crumbs {
+	border-bottom: 1px solid #eee;
+	background: #fff;
+	color: #eee;
+
+	& > .wrap {
+		$padding: 15px;
+		padding-top: $padding;
+		padding-bottom: $padding;
+	}
+
+	a {
+		text-decoration: none;
+		color: #ccc;
+		font-weight: 400;
+	}
+
+	.arrow {
+		margin: 0 20px;
+	}
+}

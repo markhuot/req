@@ -1,0 +1,40 @@
+{% extends "layouts/default" %}
+
+{% block content %}
+<div class="wrap">
+	<h2>Invite a User</h2>
+	<form method="post" action="{{ url_route('settings.postUser', account.subdomain) }}">
+		<p>
+			<label>Invite another user</label>
+			<input type="text" name="invite[email]" placeholder="email@requirement.guru" />
+		</p>
+		<p>
+			<input type="submit" />
+		</p>
+	</form>
+
+	<h2>Users</h2>
+
+	{#
+	<div class="filter-box">
+		<div class="filter-field">
+			<span class="filter-field__placeholder">Filter&hellip;</span>
+			<!-- <span class="filter-field__token">team: Developers</span>
+			<span class="filter-field__token">sort: Name <i class="fa fa-chevron-up"></i></span>
+			<div class="filter-field__more"><i class="fa fa-chevron-down"></i></div> -->
+		</div>
+	</div>
+	#}
+
+	{% for user in users %}
+		<div class="user-card">
+			<a href="#">
+				<p class="user-card__avatar"><img src="{{ user.avatar }}" /></p>
+				<p class="user-card__name">{{ user.fullName }}</p>
+				<p class="user-card__email">{{ user.email }}</p>
+				<p class="user-card__teams">{{ user.teams.lists('name')|join(', ') }}</p>
+			</a>
+		</div>
+	{% endfor %}
+</div>
+{% endblock %}
