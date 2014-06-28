@@ -51,6 +51,21 @@ class RequirementController extends BaseController {
       $notes[] = 'updated '.$key.' from '.$original.' to '.$value;
     }
 
+    $before = $requirement->assignments->modelKeys();
+    sort($before);
+    $after = Input::get('requirement.assignments', []);
+    sort($after);
+
+    if (array_diff($before, $after) || array_diff($after, $before)) {
+      $requirement->assignments()->sync($after);
+      if (empty($after)) {
+        $notes[] = 'removed all assignments';
+      }
+      else {
+        $notes[] = 'changed the assignment to '.implode(', ', $requirement->assignments()->get()->lists('fullName'));
+      }
+    }
+
     $requirement->save();
 
     $comment = new Comment;

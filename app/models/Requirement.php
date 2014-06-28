@@ -21,4 +21,9 @@ class Requirement extends Eloquent {
     return $this->hasMany('Comment');
   }
 
+  public function assignments()
+  {
+    return $this->belongsToMany('User', 'requirement_assignment');
+  }
+
 }

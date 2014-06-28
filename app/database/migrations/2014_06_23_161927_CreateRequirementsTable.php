@@ -23,6 +23,16 @@ class CreateRequirementsTable extends Migration {
 
       $table->foreign('project_id')->references('id')->on('projects');
     });
+
+    Schema::create('requirement_assignment', function($table)
+    {
+      $table->increments('id');
+      $table->unsignedInteger('requirement_id');
+      $table->unsignedInteger('user_id');
+
+      $table->foreign('requirement_id')->references('id')->on('requirements');
+      $table->foreign('user_id')->references('id')->on('users');
+    });
   }
 
   /**
@@ -33,6 +43,7 @@ class CreateRequirementsTable extends Migration {
   public function down()
   {
     Schema::dropIfExists('requirements');
+    Schema::dropIfExists('requirement_assignment');
   }
 
 }

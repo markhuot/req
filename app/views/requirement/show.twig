@@ -61,10 +61,10 @@
 				</p>
 				<p class="comment-form__item">
 					<label for="requirement-assignment">Assign</label>
-					<select multiple="multiple" id="requirement-assignment">
-						<option>one</option>
-						<option>two</option>
-						<option>three</option>
+					<select multiple="multiple" id="requirement-assignment" name="requirement[assignments][]">
+						{% for user in account.users %}
+							<option value="{{ user.id }}" {{ requirement.assignments.contains(user.id) ? 'selected="selected"' : '' }}>{{ user.fullName }}</option>
+						{% endfor %}
 					</select>
 				</p>
 				<div class="comment-form__item">
