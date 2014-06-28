@@ -35,7 +35,61 @@ td {
 .requirement__body--full {
   font-size: 18px;
   font-weight: 200;
+  line-height: 1.5;
+  margin-bottom: 2em; }
+
+.requirement__notes__heading {
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.25); }
+
+.requirement__notes {
+  list-style: none; }
+
+.requirement__notes__item {
+  margin-bottom: 0.5em;
+  font-size: 14px;
   line-height: 1.5; }
+  .requirement__notes__item:last-child {
+    margin-bottom: 0; }
+  .requirement__notes__item a {
+    text-decoration: none;
+    color: #999; }
+  .requirement__notes__item strong {
+    background: rgba(250, 236, 131, 0.25);
+    color: #333;
+    font-weight: 200; }
+
+.requirement__actions {
+  border-top: 1px solid #fff;
+  font-size: 14px;
+  color: #999; }
+  .requirement__actions ul {
+    list-style: none;
+    margin-left: -40px; }
+  .requirement__actions li {
+    display: inline; }
+  .requirement__actions a {
+    color: inherit;
+    text-decoration: none; }
+    .requirement__actions a:hover {
+      text-decoration: underline; }
+  .requirement__actions:after {
+    content: "";
+    display: table;
+    clear: both; }
+
+.requirement__actions__item {
+  padding: 20px 40px;
+  float: left; }
+  .requirement__actions__item:after {
+    content: "";
+    display: table;
+    clear: both; }
+
+.requirement__actions__button {
+  float: left;
+  padding: 20px 40px;
+  border-right: 1px solid #fff; }
 
 .comment__body {
   margin-bottom: 0.5em; }

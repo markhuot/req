@@ -7,6 +7,20 @@
 		<div class="requirement__body--full">
 			{{ requirement.body }}
 		</div>
+		<h2 class="requirement__notes__heading">Notes</h2>
+		<ul class="requirement__notes">
+			<li class="requirement__notes__item"><a href="#">Lorem ipsum <strong>dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</strong> dolore magna aliqua</a></li>
+			<li class="requirement__notes__item"><a href="#">aute irure dolor <strong>in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</strong> Excepteur sint occaecat</a></li>
+		</ul>
+	</div>
+</div>
+<div class="requirement__actions">
+	<div class="wrap">
+		<ul>
+			<li><a class="requirement__actions__item requirement__actions__button" href="#"><i class="fa fa-edit"></i> Edit</a></li>
+			<li><a class="requirement__actions__item requirement__actions__button" href="#"><i class="fa fa-code-fork"></i> Split</a></li>
+			<li class="requirement__actions__item">Buckets: <a href="#">Name 1</a>, <a href="#">Name 2</a></li>
+		</ul>
 	</div>
 </div>
 <div class="timeline">
@@ -81,11 +95,6 @@
 {% endblock %}
 
 {% block sidebar %}
-<ul class="actions">
-	<li><a href="#"><strong>Edit</strong> requirement</a></li>
-	<li><a href="#"><strong>Split</strong> requirement</a></li>
-</ul>
-
 <h2>Buckets</h2>
 <ul>
 	<li><a href="#">Bucket Name 1</a></li>
