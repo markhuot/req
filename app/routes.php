@@ -36,6 +36,8 @@ Route::group(['before' => 'auth', 'domain' => '{account}.requirements.dev', 'pre
 
 Route::group(['before' => 'auth', 'domain' => '{account}.requirements.dev'], function()
 {
+  Route::get('settings', ['as' => 'settings.index', 'uses' => 'SettingsController@index']);
+
   Route::get('settings/users', ['as' => 'settings.users', 'uses' => 'SettingsController@users']);
   Route::post('settings/users', ['as' => 'settings.postUser', 'uses' => 'SettingsController@postUser']);
 

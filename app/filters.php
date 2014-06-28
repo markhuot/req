@@ -62,6 +62,9 @@ Route::filter('auth', function(Illuminate\Routing\Route $route, Illuminate\Http\
       ->with('account', $account)
     ;
   }
+
+  View::share('account', $account);
+  View::share('user', Auth::user());
 });
 
 
