@@ -25,6 +25,7 @@ class CreateAccountsTable extends Migration {
       $table->increments('id');
       $table->unsignedInteger('account_id');
       $table->unsignedInteger('user_id');
+      $table->boolean('pending')->default(true);
 
       $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

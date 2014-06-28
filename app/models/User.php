@@ -25,7 +25,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
   public function accounts()
   {
-    return $this->belongsToMany('Account');
+    return $this->belongsToMany('Account')->withPivot('pending');
   }
 
   public function teams()

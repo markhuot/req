@@ -13,7 +13,7 @@ class UserTableSeeder extends Seeder {
       'email' => 'mark@markhuot.com',
       'password' => Hash::make('howdy'),
     ]);
-    $mark->accounts()->attach(Account::where('subdomain', '=', 'happycog')->first()->id);
+    $mark->accounts()->attach(Account::where('subdomain', '=', 'test')->first()->id, ['pending' => false]);
     $mark->teams()->attach(Team::where('name', '=', 'Developers')->first()->id);
 
     $jack = User::create([
@@ -22,7 +22,7 @@ class UserTableSeeder extends Seeder {
       'email' => 'jack@ctu.gov',
       'password' => Hash::make('howdy'),
     ]);
-    $jack->accounts()->attach(Account::where('subdomain', '=', 'happycog')->first()->id);
+    $jack->accounts()->attach(Account::where('subdomain', '=', 'test')->first()->id, ['pending' => false]);
     $jack->teams()->attach(Team::where('name', '=', 'Developers')->first()->id);
   }
 

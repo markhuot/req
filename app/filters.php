@@ -33,9 +33,9 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('auth', function()
+Route::filter('auth', function(Illuminate\Routing\Route $route, Illuminate\Http\Request $request)
 {
-	if (Auth::guest())
+  if (Auth::guest())
 	{
 		if (Request::ajax())
 		{
@@ -46,6 +46,22 @@ Route::filter('auth', function()
 			return Redirect::guest('login');
 		}
 	}
+
+  $account = $route->parameters()['account'];
+  $user = $account->users->find(Auth::user()->id);
+  $routeName = $route->getAction()['as'];
+
+  if ($routeName != 'invite.request' && !$user) {
+    return View::make('login.unauthorized')
+      ->with('account', $account)
+    ;
+  }
+
+  if ($routeName != 'invite.accept' && $user && $user->pivot->pending) {
+    return View::make('login.pending')
+      ->with('account', $account)
+    ;
+  }
 });
 
 

@@ -37,7 +37,7 @@ class LoginController extends BaseController {
     $user->password = Hash::make(Input::get('user.password'));
     $user->save();
 
-    $account->users()->attach($user->id);
+    $account->users()->attach($user->id, ['pending' => true]);
 
     Auth::loginUsingId($user->id);
 

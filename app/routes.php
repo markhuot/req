@@ -36,10 +36,13 @@ Route::group(['before' => 'auth', 'domain' => '{account}.requirements.dev'], fun
   Route::get('settings/users', ['as' => 'settings.users', 'uses' => 'SettingsController@users']);
   Route::post('settings/users', ['as' => 'settings.postUser', 'uses' => 'SettingsController@postUser']);
 
+  Route::get('invite/request', ['as' => 'invite.request', 'uses' => 'InviteController@request']);
+  Route::get('invite/approve/{user}', ['as' => 'invite.approve', 'uses' => 'InviteController@approve']);
   Route::get('invite/accept/{inviteCode}', ['as' => 'invite.accept', 'uses' => 'InviteController@accept']);
 });
 
 Route::model('requirement', 'Requirement');
+Route::model('user', 'User');
 Route::bind('account', function($value, $route) {
   return Account::where('subdomain', '=', $value)->firstOrFail();
 });
