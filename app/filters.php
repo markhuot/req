@@ -22,6 +22,11 @@ App::after(function($request, $response)
 	//
 });
 
+Route::filter('account', function(Illuminate\Routing\Route $route, Illuminate\Http\Request $request)
+{
+  View::share('account', $route->parameters()['account']);
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters
@@ -51,6 +56,8 @@ Route::filter('auth', function(Illuminate\Routing\Route $route, Illuminate\Http\
   $user = $account->users->find(Auth::user()->id);
   $routeName = $route->getAction()['as'];
 
+  View::share('user', Auth::user());
+
   if ($routeName != 'invite.request' && !$user) {
     return View::make('login.unauthorized')
       ->with('account', $account)
@@ -63,8 +70,7 @@ Route::filter('auth', function(Illuminate\Routing\Route $route, Illuminate\Http\
     ;
   }
 
-  View::share('account', $account);
-  View::share('user', Auth::user());
+
 });
 
 

@@ -16,7 +16,7 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::group(['domain' => '{account}.requirements.dev'], function()
+Route::group(['before' => 'account', 'domain' => '{account}.requirements.dev'], function()
 {
   Route::get('login', ['as' => 'login', 'uses' => 'LoginController@login']);
   Route::post('login', ['as' => 'login.post', 'uses' => 'LoginController@postLogin']);
@@ -25,7 +25,7 @@ Route::group(['domain' => '{account}.requirements.dev'], function()
   Route::get('logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 });
 
-Route::group(['before' => 'auth', 'domain' => '{account}.requirements.dev', 'prefix' => '{project}'], function()
+Route::group(['before' => ['account', 'auth'], 'domain' => '{account}.requirements.dev', 'prefix' => '{project}'], function()
 {
   Route::get('requirements', ['as' => 'requirement.index', 'uses' => 'RequirementController@index']);
   Route::get('requirement/create', ['as' => 'requirement.create', 'uses' => 'RequirementController@create']);
@@ -34,7 +34,7 @@ Route::group(['before' => 'auth', 'domain' => '{account}.requirements.dev', 'pre
   Route::post('requirement/{requirement}/comment', ['as' => 'requirement.comment.store', 'uses' => 'RequirementController@storeComment']);
 });
 
-Route::group(['before' => 'auth', 'domain' => '{account}.requirements.dev'], function()
+Route::group(['before' => ['account', 'auth'], 'domain' => '{account}.requirements.dev'], function()
 {
   Route::get('settings', ['as' => 'settings.index', 'uses' => 'SettingsController@index']);
 
