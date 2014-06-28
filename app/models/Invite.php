@@ -7,7 +7,7 @@ class Invite extends Eloquent {
     parent::boot();
 
     static::creating(function($invite) {
-      $invite->code = '8adsyf7gab';
+      $invite->code = str_random(8);
     });
   }
 
