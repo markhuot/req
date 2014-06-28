@@ -25,24 +25,35 @@ Route::group(['domain' => '{account}.requirements.dev'], function()
   Route::get('logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 });
 
-Route::group(['before' => 'auth', 'domain' => '{account}.requirements.dev'], function()
+Route::group(['before' => 'auth', 'domain' => '{account}.requirements.dev', 'prefix' => '{project}'], function()
 {
   Route::get('requirements', ['as' => 'requirement.index', 'uses' => 'RequirementController@index']);
   Route::get('requirement/create', ['as' => 'requirement.create', 'uses' => 'RequirementController@create']);
   Route::post('requirement', ['as' => 'requirement.store', 'uses' => 'RequirementController@store']);
   Route::get('requirement/{requirement}', ['as' => 'requirement.show', 'uses' => 'RequirementController@show']);
   Route::post('requirement/{requirement}/comment', ['as' => 'requirement.comment.store', 'uses' => 'RequirementController@storeComment']);
+});
 
+Route::group(['before' => 'auth', 'domain' => '{account}.requirements.dev'], function()
+{
   Route::get('settings/users', ['as' => 'settings.users', 'uses' => 'SettingsController@users']);
   Route::post('settings/users', ['as' => 'settings.postUser', 'uses' => 'SettingsController@postUser']);
+
+  Route::get('settings/projects', ['as' => 'settings.projects', 'uses' => 'SettingsController@projects']);
+  Route::post('settings/projects', ['as' => 'settings.postProject', 'uses' => 'SettingsController@postProject']);
 
   Route::get('invite/request', ['as' => 'invite.request', 'uses' => 'InviteController@request']);
   Route::get('invite/approve/{user}', ['as' => 'invite.approve', 'uses' => 'InviteController@approve']);
   Route::get('invite/accept/{inviteCode}', ['as' => 'invite.accept', 'uses' => 'InviteController@accept']);
 });
 
-Route::model('requirement', 'Requirement');
 Route::model('user', 'User');
+Route::bind('project', function($value, $route) {
+  return Project::where('slug', '=', $value)->firstOrFail();
+});
+Route::bind('requirement', function($value, $route) {
+  return $route->parameters()['project']->requirements()->findOrFail($value);
+});
 Route::bind('account', function($value, $route) {
   return Account::where('subdomain', '=', $value)->firstOrFail();
 });

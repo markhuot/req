@@ -15,10 +15,13 @@ class CreateRequirementsTable extends Migration {
     Schema::create('requirements', function($table)
     {
       $table->increments('id');
+      $table->unsignedInteger('project_id');
       $table->string('title')->nullable();
       $table->string('body');
       $table->string('status')->default('pending');
       $table->timestamps();
+
+      $table->foreign('project_id')->references('id')->on('projects');
     });
   }
 

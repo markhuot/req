@@ -29,6 +29,7 @@ class CreateNotificationsTable extends Migration {
        */
       $table->string('initiator');
       $table->unsignedInteger('initiator_key');
+
       $table->string('notes');
       $table->timestamps();
 

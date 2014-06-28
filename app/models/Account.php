@@ -12,4 +12,9 @@ class Account extends Eloquent {
     return $this->hasMany('Invite');
   }
 
+  public function projects()
+  {
+    return $this->hasMany('Project');
+  }
+
 }

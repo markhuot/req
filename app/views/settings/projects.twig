@@ -1,0 +1,24 @@
+{% extends "layouts/default" %}
+
+{% block content %}
+<div class="wrap">
+	<h2>Create a Project</h2>
+	<form method="post" action="{{ url_route('settings.postProject', account.subdomain) }}">
+		<p>
+			<label>Project Name</label>
+			<input type="text" name="project[name]" placeholder="Awesome Project" />
+		</p>
+		<p>
+			<input type="submit" />
+		</p>
+	</form>
+
+	<h2>Projects</h2>
+
+	{% for project in projects %}
+		<tr>
+			<td>{{ project.name }}</td>
+		</tr>
+	{% endfor %}
+</div>
+{% endblock %}
