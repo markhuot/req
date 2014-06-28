@@ -1,0 +1,8 @@
+select[data-chosen] {
+	width: 100%;
+}
+
+.chosen-container-active .chosen-choices {
+  border: 1px solid #5897fb;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}

@@ -61,7 +61,7 @@
 				</p>
 				<p class="comment-form__item">
 					<label for="requirement-assignment">Assign</label>
-					<select multiple="multiple" id="requirement-assignment" name="requirement[assignments][]">
+					<select multiple="multiple" id="requirement-assignment" name="requirement[assignments][]" data-chosen data-placeholder="Select users...">
 						{% for user in account.users %}
 							<option value="{{ user.id }}" {{ requirement.assignments.contains(user.id) ? 'selected="selected"' : '' }}>{{ user.fullName }}</option>
 						{% endfor %}
@@ -98,7 +98,7 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+{{ parent() }}
 <script type="text/javascript">
 	$(document).on('change', 'input:radio', function() {
 		$('[data-checked]').removeAttr('data-checked').trigger('change');
