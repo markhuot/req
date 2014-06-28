@@ -4,7 +4,11 @@ class RequirementController extends BaseController {
 
   public function index(Account $account, Project $project)
   {
-
+    return View::make('requirement.index')
+      ->with('account', $account)
+      ->with('project', $project)
+      ->with('requirements', $project->requirements)
+    ;
   }
 
   public function create(Account $account, Project $project)
