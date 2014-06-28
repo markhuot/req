@@ -31,6 +31,7 @@ class SettingsController extends BaseController {
   {
     $project = new Project;
     $project->name = Input::get('project.name');
+    $project->slug = Input::get('project.slug', slug_case($project->name));
 
     $account->projects()->save($project);
     return Redirect::route('settings.projects', $account->subdomain);
