@@ -40,7 +40,7 @@ td {
 
 .requirement__notes__heading {
   font-size: 18px;
-  color: rgba(0, 0, 0, 0.25); }
+  color: #999; }
 
 .requirement__notes {
   list-style: none; }
@@ -54,10 +54,12 @@ td {
   .requirement__notes__item a {
     text-decoration: none;
     color: #999; }
-  .requirement__notes__item strong {
-    background: rgba(250, 236, 131, 0.25);
-    color: #333;
-    font-weight: 200; }
+    .requirement__notes__item a strong {
+      background: rgba(250, 236, 131, 0.25);
+      color: #333;
+      font-weight: 200; }
+    .requirement__notes__item a:hover strong {
+      background: #faec83; }
 
 .requirement__actions {
   border-top: 1px solid #fff;

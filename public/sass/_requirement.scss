@@ -13,7 +13,7 @@
 
 .requirement__notes__heading {
 	font-size: 18px;
-	color: rgba(0,0,0,0.25);
+	color: #999;
 }
 
 .requirement__notes {
@@ -32,12 +32,18 @@
 	a {
 		text-decoration: none;
 		color: #999;
-	}
 
-	strong {
-		background: rgba(250, 236, 131, 0.25);
-		color: #333;
-		font-weight: 200;
+		strong {
+			background: rgba(250, 236, 131, 0.25);
+			color: #333;
+			font-weight: 200;
+		}
+
+		&:hover {
+			strong {
+				background: rgba(250, 236, 131, 1);
+			}
+		}
 	}
 }
 
