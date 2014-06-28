@@ -21,7 +21,8 @@ class RequirementController extends BaseController {
   {
     $requirement = new Requirement;
     $requirement->fill(Input::get('requirement'));
-    $requirement->save();
+
+    $project->requirements()->save($requirement);
 
     switch(Input::get('action')) {
       case 'addMore':
@@ -29,7 +30,7 @@ class RequirementController extends BaseController {
       break;
 
       default:
-        return Redirect::route('requirement.show', $requirement->id);
+        return Redirect::route('requirement.show', [$account->subdomain, $project->slug, $requirement->id]);
     }
   }
 
