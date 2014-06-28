@@ -5,7 +5,6 @@ class SettingsController extends BaseController {
   public function users(Account $account)
   {
     return View::make('settings.users')
-      ->with('account', $account)
       ->with('users', $account->users)
     ;
   }
@@ -22,7 +21,6 @@ class SettingsController extends BaseController {
   public function projects(Account $account)
   {
     return View::make('settings.projects')
-      ->with('account', $account)
       ->with('projects', $account->projects)
     ;
   }

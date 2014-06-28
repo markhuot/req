@@ -5,7 +5,6 @@ class RequirementController extends BaseController {
   public function index(Account $account, Project $project)
   {
     return View::make('requirement.index')
-      ->with('account', $account)
       ->with('project', $project)
       ->with('requirements', $project->requirements)
     ;
@@ -14,7 +13,6 @@ class RequirementController extends BaseController {
   public function create(Account $account, Project $project)
   {
     return View::make('requirement.create')
-      ->with('account', $account)
       ->with('project', $project)
     ;
   }
@@ -38,7 +36,6 @@ class RequirementController extends BaseController {
   public function show(Account $account, Project $project, Requirement $requirement)
   {
     return View::make('requirement.show')
-      ->with('account', $account)
       ->with('project', $project)
       ->with('requirement', $requirement)
     ;
@@ -72,7 +69,7 @@ class RequirementController extends BaseController {
     //   $notification->save();
     // }
 
-    return Redirect::route('requirement.show', $requirement->id);
+    return Redirect::route('requirement.show', [$account->subdomain, $project->slug, $requirement->id]);
   }
 
 }

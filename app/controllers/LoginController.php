@@ -4,9 +4,7 @@ class LoginController extends BaseController {
 
   public function login(Account $account)
   {
-    return View::make('login.index')
-      ->with('account', $account)
-    ;
+    return View::make('login.index');
   }
 
   public function postLogin(Account $account)
@@ -23,9 +21,7 @@ class LoginController extends BaseController {
 
   public function register(Account $account)
   {
-    return View::make('login.register')
-      ->with('account', $account)
-    ;
+    return View::make('login.register');
   }
 
   public function postRegister(Account $account)

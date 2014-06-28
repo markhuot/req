@@ -27,15 +27,15 @@
 							{{ comment.body }}
 						</div>
 						{% endif %}
-						{% if comment.notifications.first.notes %}
+						{% if comment.notes %}
 						<div class="comment__notes">
-							{{ comment.notifications.first.notes }}
+							{{ comment.notes }}
 						</div>
 						{% endif %}
 					</div>
 				{% endfor %}
 			</div>
-			<form class="timeline__item comment-form" action="{{ url_route('requirement.comment.store', requirement.id) }}" method="post">
+			<form class="timeline__item comment-form" action="{{ url_route('requirement.comment.store', [account.subdomain, project.slug, requirement.id]) }}" method="post">
 				<div class="timeline__meta">
 					<i class="fa fa-comment timeline__meta__icon"></i>
 					<p class="timeline__meta__label">
