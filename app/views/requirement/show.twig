@@ -3,7 +3,7 @@
 {% block content %}
 <div class="wrap">
 	<div class="content__body">
-		<h1 class="requirement__title--full">{{ requirement.title }}</h1>
+		<h1 class="requirement__title--full">{{ requirement.title }} <small class="requirement__status--full status-txt-{{ requirement.status }}">{{ requirement.status }}</small></h1>
 		<div class="requirement__body--full">
 			{{ requirement.body }}
 		</div>
@@ -26,9 +26,11 @@
 <div class="requirement__actions">
 	<div class="wrap">
 		<ul>
-			<li><a class="requirement__actions__item requirement__actions__button" href="#"><i class="fa fa-edit"></i> Edit</a></li>
+			<li class="requirement__actions__item"><i class="fa fa-tags"></i> Tags: <a href="#">Name 1</a>, <a href="#">Name 2</a></li>
+			<li class="requirement__actions__item"><i class="fa fa-sitemap"></i> Related: <a href="#">Requirement A</a>, <a href="#">Requirement B</a>, <a href="#">Requirement C</a></li>
+			{#<li><a class="requirement__actions__item requirement__actions__button" href="#"><i class="fa fa-edit"></i> Edit</a></li>
 			<li><a class="requirement__actions__item requirement__actions__button" href="#"><i class="fa fa-code-fork"></i> Split</a></li>
-			<li class="requirement__actions__item">Buckets: <a href="#">Name 1</a>, <a href="#">Name 2</a></li>
+			<li class="requirement__actions__item"></li>#}
 		</ul>
 	</div>
 </div>
@@ -95,7 +97,7 @@
 					<p>We'll let <a href="#">John, Jack, and Mary</a> know about this comment.</p>
 				</div>
 				<p class="comment-form__item">
-					<button>Add Comment</button>
+					<button><i class="fa fa-mail-reply-all"></i> Add Comment</button>
 				</p>
 			</form>
 		</div>

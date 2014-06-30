@@ -43,7 +43,8 @@ td {
   color: #999; }
 
 .requirement__notes {
-  list-style: none; }
+  list-style: none;
+  margin-bottom: 2em; }
 
 .requirement__notes__item {
   margin-bottom: 0.5em;
@@ -99,6 +100,21 @@ td {
   float: left;
   padding: 20px 40px;
   border-right: 1px solid #fff; }
+
+.status-txt-pending {
+  color: #DFCC27; }
+
+.status-txt-accepted {
+  color: #5C9728; }
+
+.status-txt-rejected {
+  color: #E93328; }
+
+.status-txt-delivered {
+  color: #34b0f0; }
+
+.status-txt-closed {
+  color: grey; }
 
 .comment__body {
   margin-bottom: 0.5em;
@@ -343,6 +359,29 @@ select[data-chosen] {
 .chosen-container-active .chosen-choices {
   border: 1px solid #5897fb;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); }
+
+button {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  background-color: green;
+  color: #fff;
+  font-size: 14px;
+  font-family: "Helvetica Neue";
+  font-weight: 200;
+  position: relative;
+  overflow: hidden; }
+  button i {
+    position: absolute;
+    top: -3px;
+    left: -5px;
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 45px;
+    -webkit-transform: rotateZ(-20deg); }
+  button.alt {
+    background-color: grey; }
 
 .highlighter {
   background: rgba(0, 0, 0, 0.8);
