@@ -33,6 +33,7 @@ Route::group(['before' => ['account', 'auth'], 'domain' => '{account}.requiremen
   Route::get('requirement/{requirement}', ['as' => 'requirement.show', 'uses' => 'RequirementController@show']);
   Route::post('requirement/{requirement}/comment', ['as' => 'requirement.comment.store', 'uses' => 'RequirementController@storeComment']);
   Route::post('requirement/{requirement}/comment/{comment}/highlight', ['as' => 'highlight.store', 'uses' => 'RequirementController@storeHighlight']);
+  Route::get('requirement/{requirement}/comment/{comment}/highlight/{highlight}/delete', ['as' => 'highlight.delete', 'uses' => 'RequirementController@deleteHighlight']);
 });
 
 Route::group(['before' => ['account', 'auth'], 'domain' => '{account}.requirements.dev'], function()
@@ -52,6 +53,7 @@ Route::group(['before' => ['account', 'auth'], 'domain' => '{account}.requiremen
 
 Route::model('user', 'User');
 Route::model('comment', 'Comment');
+Route::model('highlight', 'Highlight');
 Route::bind('project', function($value, $route) {
   return Project::where('slug', '=', $value)->firstOrFail();
 });

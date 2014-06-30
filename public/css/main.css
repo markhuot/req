@@ -57,9 +57,16 @@ td {
     .requirement__notes__item a strong {
       background: rgba(250, 236, 131, 0.25);
       color: #333;
-      font-weight: 200; }
-    .requirement__notes__item a:hover strong {
-      background: #faec83; }
+      font-weight: 200;
+      -webkit-transition: background-color 0.5s; }
+  .requirement__notes__item .requirement__notes__delete {
+    opacity: 0;
+    -webkit-transition: opacity 1s;
+    color: red; }
+  .requirement__notes__item:hover strong {
+    background: #faec83; }
+  .requirement__notes__item:hover .requirement__notes__delete {
+    opacity: 1; }
 
 .requirement__actions {
   border-top: 1px solid #fff;

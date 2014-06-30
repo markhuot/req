@@ -12,7 +12,12 @@
 		<h2 class="requirement__notes__heading">Highlights</h2>
 		<ul class="requirement__notes">
 			{% for highlight in requirement.highlights %}
-				<li class="requirement__notes__item"><a href="#comment-{{ highlight.comment_id }}">{% if highlight.before %}{{ highlight.before }}&nbsp;{% endif %}<strong>{{ highlight.text }}</strong>{% if highlight.after %}&nbsp;{{ highlight.after }}{% endif %}</a></li>
+				<li class="requirement__notes__item">
+					<a href="#comment-{{ highlight.comment_id }}">
+					{% if highlight.before %}{{ highlight.before }}&nbsp;{% endif %}<strong>{{ highlight.text }}</strong>{% if highlight.after %}&nbsp;{{ highlight.after }}{% endif %}
+					</a>
+					<a class="requirement__notes__delete" href="{{ url_route('highlight.delete', [account.subdomain, project.slug, requirement.id, highlight.comment_id, highlight.id]) }}"><i class="fa fa-trash-o"></i></a>
+				</li>
 			{% endfor %}
 		</ul>
 		{% endif %}
@@ -129,6 +134,7 @@
 		var selection = window.getSelection();
 		var firstRange = selection.getRangeAt(0);
 		if (!firstRange || firstRange.collapsed) { return; }
+		if (!$(firstRange.startContainer).closest('.comment').length) { return; }
 
 		var before = null;
 		if (firstRange.startOffset != 0) {

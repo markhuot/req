@@ -103,4 +103,11 @@ class RequirementController extends BaseController {
     return Response::json($highlight);
   }
 
+  public function deleteHighlight(Account $account, Project $project, Requirement $requirement, Comment $comment, Highlight $highlight)
+  {
+    $highlight->delete();
+
+    return Redirect::route('requirement.show', [$account->subdomain, $project->slug, $requirement->id]);
+  }
+
 }
