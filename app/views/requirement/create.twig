@@ -3,11 +3,11 @@
 {% block content %}
 <div class="wrap">
 	<form action="{{ url_route('requirement.store', [account.subdomain, project.slug]) }}" method="post">
-		<p>
+		<p class="form__item">
 			<label for="requirement-body">Requirement</label>
 			<textarea id="requirement-body" name="requirement[body]"></textarea>
 		</p>
-		<p>
+		<p class="form__item">
 			<button><i class="fa fa-save"></i> Save</button>
 			<button name="action" value="addMore" class="alt"><i class="fa fa-files-o"></i> Save and Add Another</button>
 		</p>

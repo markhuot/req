@@ -138,15 +138,22 @@ td {
   .crumbs .arrow {
     margin: 0 20px; }
 
-.comment-form label {
+label {
   display: block;
-  margin-bottom: 0.5em; }
-.comment-form textarea {
+  margin-bottom: 0.5em;
+  font-size: 14px; }
+
+textarea {
   width: 100%;
   max-width: 100%;
-  height: 10em; }
+  height: 10em;
+  font-size: 16px;
+  padding: 10px;
+  font-family: "Helvetica Neue";
+  font-weight: 200;
+  line-height: 1.5em; }
 
-.comment-form__item {
+.form__item {
   margin-bottom: 1.5em; }
 
 .comment-form__status {
@@ -240,13 +247,6 @@ td {
   color: grey;
   background: grey;
   border-color: grey; }
-
-.comment-form__body textarea {
-  font-size: 16px;
-  padding: 10px;
-  font-family: "Helvetica Neue";
-  font-weight: 200;
-  line-height: 1.5em; }
 
 .timeline {
   background: #fff;
