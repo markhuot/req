@@ -94,7 +94,8 @@ td {
   border-right: 1px solid #fff; }
 
 .comment__body {
-  margin-bottom: 0.5em; }
+  margin-bottom: 0.5em;
+  line-height: 1.5; }
 
 .comment__notes {
   color: #999;
@@ -335,3 +336,13 @@ select[data-chosen] {
 .chosen-container-active .chosen-choices {
   border: 1px solid #5897fb;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); }
+
+.highlighter {
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 3px;
+  color: #fff; }
+  .highlighter a {
+    padding: 10px;
+    color: inherit;
+    text-decoration: none;
+    display: inline-block; }

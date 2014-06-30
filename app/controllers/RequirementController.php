@@ -88,4 +88,19 @@ class RequirementController extends BaseController {
     return Redirect::route('requirement.show', [$account->subdomain, $project->slug, $requirement->id]);
   }
 
+  public function storeHighlight(Account $account, Project $project, Requirement $requirement, Comment $comment)
+  {
+    $highlight = new Highlight;
+    $highlight->comment_id = $comment->id;
+    $highlight->user_id = Auth::user()->id;
+    $highlight->before = Input::get('highlight.before');
+    $highlight->start = Input::get('highlight.start');
+    $highlight->text = Input::get('highlight.text');
+    $highlight->end = Input::get('highlight.end');
+    $highlight->after = Input::get('highlight.after');
+    $highlight->save();
+
+    return Response::json($highlight);
+  }
+
 }

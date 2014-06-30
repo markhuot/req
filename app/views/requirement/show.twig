@@ -7,11 +7,15 @@
 		<div class="requirement__body--full">
 			{{ requirement.body }}
 		</div>
+
+		{% if requirement.highlights.count %}
 		<h2 class="requirement__notes__heading">Highlights</h2>
 		<ul class="requirement__notes">
-			<li class="requirement__notes__item"><a href="#">Lorem ipsum <strong>dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</strong> dolore magna aliqua</a></li>
-			<li class="requirement__notes__item"><a href="#">aute irure dolor <strong>in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</strong> Excepteur sint occaecat</a></li>
+			{% for highlight in requirement.highlights %}
+				<li class="requirement__notes__item"><a href="#comment-{{ highlight.comment_id }}">{% if highlight.before %}{{ highlight.before }}&nbsp;{% endif %}<strong>{{ highlight.text }}</strong>{% if highlight.after %}&nbsp;{{ highlight.after }}{% endif %}</a></li>
+			{% endfor %}
 		</ul>
+		{% endif %}
 	</div>
 </div>
 <div class="requirement__actions">
@@ -28,7 +32,7 @@
 		<div class="timeline__body">
 			<div class="comments">
 				{% for comment in requirement.comments %}
-					<div class="timeline__item comment">
+					<div id="comment-{{ comment.id }}" class="timeline__item comment" data-comment data-comment-id="{{ comment.id }}">
 						<div class="timeline__meta">
 							<i class="fa fa-comment timeline__meta__icon"></i>
 							<p class="timeline__meta__label">
@@ -37,7 +41,7 @@
 							</p>
 						</div>
 						{% if comment.body %}
-						<div class="comment__body">
+						<div class="comment__body" data-highlightable>
 							{{ comment.body }}
 						</div>
 						{% endif %}
@@ -92,6 +96,15 @@
 		</div>
 	</div>
 </div>
+
+<div class="holder">
+	<div class='share-highlight-btn'>
+		<div class='btn-caret'>
+		</div>
+		<div class='btn-left'>Hey there!</div>
+		<div class='btn-right'>&times;</div>
+	</div>
+</div>
 {% endblock %}
 
 {% block javascript %}
@@ -112,5 +125,64 @@
 		}
 	});
 	$('input:radio:checked').trigger('change');
+
+	$(document).on('mousedown touchdown', function() {
+		$('.highlighter').remove();
+	});
+
+	$(document).on('mousedown touchdown', '.highlighter', function() {
+		return false;
+	});
+
+	$(document).on('mouseup touchup', function() {
+		var selection = window.getSelection();
+		var firstRange = selection.getRangeAt(0);
+		if (!firstRange || firstRange.collapsed) { return; }
+
+		var before = null;
+		if (firstRange.startOffset != 0) {
+			var beforeArray = firstRange.startContainer.textContent.substring(0, firstRange.startOffset).trim().split(/\s+/);
+			before = beforeArray.slice(beforeArray.length-4, beforeArray.length).join(' ');
+		}
+		var after = null;
+		if (firstRange.endOffset != firstRange.endContainer.textContent.length) {
+			var afterArray = firstRange.endContainer.textContent.substring(firstRange.endOffset).trim().split(/\s+/);
+			after = afterArray.slice(0, 4).join(' ');
+		}
+
+		var rect = firstRange.getBoundingClientRect();
+		var left = rect.left + (rect.width/2) + document.body.scrollLeft;
+		var top = rect.top + document.body.scrollTop;
+
+		var tooltip = $('<div class="highlighter"><a href="#">Highlight</a></div>').appendTo(document.body);
+		tooltip.css({
+			'position': 'absolute',
+			'left': left,
+			'top': top,
+			'-webkit-transform': 'translateY(-120%) translateX(-50%)'
+		});
+		tooltip.data('comment-id', $(firstRange.startContainer).closest('.comment').data('comment-id'));
+		tooltip.data('before', before);
+		tooltip.data('start', firstRange.startOffset);
+		tooltip.data('end', firstRange.endOffset);
+		tooltip.data('after', after);
+	});
+
+	$(document).on('click', '.highlighter a', function() {
+		var highlighter = $(this).closest('.highlighter');
+		var url = '{{ url_route('highlight.store', [account.subdomain, project.slug, requirement.id, '@commentId']) }}';
+		var data = {'highlight':{
+			'start': highlighter.data('start'),
+			'end': highlighter.data('end'),
+			'before': highlighter.data('before'),
+			'text': window.getSelection().toString().trim(),
+			'after': highlighter.data('after')
+		}};
+		$.post(url.replace('@commentId', highlighter.data('comment-id')), data, function(data) {
+			$('.highlighter').remove();
+		});
+		return false;
+	});
+
 </script>
 {% endblock %}

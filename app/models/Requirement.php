@@ -26,4 +26,9 @@ class Requirement extends Eloquent {
     return $this->belongsToMany('User', 'requirement_assignment');
   }
 
+  public function highlights()
+  {
+    return $this->hasManyThrough('Highlight', 'Comment');
+  }
+
 }

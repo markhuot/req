@@ -18,4 +18,9 @@ class Comment extends Eloquent {
     return Notification::where('initiator', '=', 'Comment')->where('initiator_key', '=', $this->id);
   }
 
+  public function highlights()
+  {
+    return $this->hasMany('Highlight');
+  }
+
 }
