@@ -100,6 +100,10 @@ class RequirementController extends BaseController {
     $highlight->after = Input::get('highlight.after');
     $highlight->save();
 
+    $comment = new Comment;
+    $comment->notes = 'highlighted '.$highlight->text;
+    $requirement->comments()->save($comment);
+
     return Response::json($highlight);
   }
 
