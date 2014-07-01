@@ -112,8 +112,7 @@
 				</p>
 				<p class="form__item">
 					<label for="requirement-tags">Tags</label>
-					{#<input type="hidden" name="requirment[tags][]" data-selectTwo />#}
-					<select multiple="multiple" id="requirement-tags" name="requirement[tags][]" data-token data-placeholder="Select tags...">
+					<select multiple="multiple" id="requirement-tags" name="requirement[tags][]" data-token data-tags data-placeholder="Select tags...">
 						{% for tag in project.tags %}
 							<option value="{{ tag.id }}" {{ requirement.tags.contains(tag.id) ? 'selected="selected"' : '' }}>{{ tag.name }}</option>
 						{% endfor %}

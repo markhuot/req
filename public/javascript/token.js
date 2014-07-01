@@ -91,15 +91,31 @@
 
   $(document).on('focus', '[data-token-input]', function() {
     $('[data-token-optionList]').remove();
-    var field = $(this).closest('[data-token-field]');
+    var input = $(this);
+    var field = input.closest('[data-token-field]');
     var options = field.data('options');
-    var optionList = $('<ul />', {'data-token-optionList':true, 'class':'token-optionList'});
-    for (var i=0; len=options.length, i<len; i++) {
-      var listItem = $('<li />', {'data-value':options[i].id, 'data-token-option':true, 'class':'token-option'});
-      listItem.html(options[i].html);
-      optionList.append(listItem);
+
+    var lozenge = {
+      defaultPrevented: false,
+      preventDefault: function() {
+        lozenge.defaultPrevented = true;
+      },
+      callback: function(fetchedOptions) {
+        var optionList = $('<ul />', {'data-token-optionList':true, 'class':'token-optionList'});
+        for (var i=0; len=fetchedOptions.length, i<len; i++) {
+          var listItem = $('<li />', {'data-value':fetchedOptions[i].id, 'data-token-option':true, 'class':'token-option'});
+          if (fetchedOptions[i].text) { listItem.text(fetchedOptions[i].text); }
+          if (fetchedOptions[i].html) { listItem.html(fetchedOptions[i].html); }
+          optionList.append(listItem);
+        }
+        input.after(optionList);
+      }
     }
-    $(this).after(optionList);
+
+    field.trigger('lozenge:fetch', lozenge);
+    if (lozenge.defaultPrevented == false) {
+      lozenge.callback(options);
+    }
   });
 
   $(document).on('blur', '[data-token-input]', function() {
@@ -134,12 +150,22 @@
 
   $(document).on('click', '[data-token-newOption]', function() {
     var container = $(this).closest('[data-token-field]');
-    $.post(TAGS_URI, {'text':$(this).data('value')}, function(newOption) {
-      var options = container.data('options');
-      options.push({id:newOption.id, html:newOption.name, selected:false});
-      container.data('options', options);
-      container.token('selectOption', newOption.id);
-    })
+
+    var lozenge = {
+      value: $(this).data('value'),
+      defaultPrevented: false,
+      preventDefault: function() {
+        lozenge.defaultPrevented = true;
+      },
+      callback: function(newOption) {
+        var options = container.data('options');
+        options.push({id:newOption.id, html:newOption.name, selected:false});
+        container.data('options', options);
+        container.token('selectOption', newOption.id);
+      }
+    }
+
+    container.trigger('lozenge:store', lozenge);
   });
 
 })(jQuery);

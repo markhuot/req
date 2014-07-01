@@ -10,7 +10,7 @@ class TagController extends BaseController {
   public function store(Account $account, Project $project)
   {
     $tag = new Tag;
-    $tag->name = Input::get('text');
+    $tag->name = Input::get('tag.name');
     $project->tags()->save($tag);
 
     return Response::json($tag);
