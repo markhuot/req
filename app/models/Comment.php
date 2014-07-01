@@ -23,4 +23,18 @@ class Comment extends Eloquent {
     return $this->hasMany('Highlight');
   }
 
+  public function icon()
+  {
+    switch ($this->type) {
+      case 'highlight':
+        return 'fa-quote-right';
+      case 'tag':
+        return 'fa-tags';
+      case 'assignment':
+        return 'fa-user';
+      default:
+        return 'fa-comment';
+    }
+  }
+
 }
