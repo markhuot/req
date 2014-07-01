@@ -104,7 +104,7 @@
 				</p>
 				<p class="form__item">
 					<label for="requirement-assignment">Assign</label>
-					<select multiple="multiple" id="requirement-assignment" name="requirement[assignments][]" data-chosen data-placeholder="Select users...">
+					<select multiple="multiple" id="requirement-assignment" name="requirement[assignments][]" data-token data-placeholder="Select users...">
 						{% for user in account.users %}
 							<option value="{{ user.id }}" {{ requirement.assignments.contains(user.id) ? 'selected="selected"' : '' }}>{{ user.fullName }}</option>
 						{% endfor %}
@@ -112,7 +112,8 @@
 				</p>
 				<p class="form__item">
 					<label for="requirement-tags">Tags</label>
-					<select multiple="multiple" id="requirement-tags" name="requirement[tags][]" data-chosen data-placeholder="Select tags...">
+					{#<input type="hidden" name="requirment[tags][]" data-selectTwo />#}
+					<select multiple="multiple" id="requirement-tags" name="requirement[tags][]" data-token data-placeholder="Select tags...">
 						{% for tag in project.tags %}
 							<option value="{{ tag.id }}" {{ requirement.tags.contains(tag.id) ? 'selected="selected"' : '' }}>{{ tag.name }}</option>
 						{% endfor %}

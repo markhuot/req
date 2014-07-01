@@ -27,6 +27,9 @@ Route::group(['before' => 'account', 'domain' => '{account}.requirements.dev'], 
 
 Route::group(['before' => ['account', 'auth'], 'domain' => '{account}.requirements.dev', 'prefix' => '{project}'], function()
 {
+  Route::get('tags', ['as' => 'tags', 'uses' => 'TagController@index']);
+  Route::post('tags', ['as' => 'tags', 'uses' => 'TagController@store']);
+
   Route::get('requirements', ['as' => 'requirement.index', 'uses' => 'RequirementController@index']);
   Route::get('requirement/create', ['as' => 'requirement.create', 'uses' => 'RequirementController@create']);
   Route::post('requirement', ['as' => 'requirement.store', 'uses' => 'RequirementController@store']);
