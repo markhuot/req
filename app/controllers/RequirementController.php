@@ -44,6 +44,10 @@ class RequirementController extends BaseController {
 
   public function storeComment(Account $account, Project $project, Requirement $requirement)
   {
+    $comment = new Comment;
+    $comment->type = 'comment';
+    $comment->fill(Input::get('comment'));
+
     $requirement->fill(Input::get('requirement'));
 
     $notes = [];
@@ -52,14 +56,27 @@ class RequirementController extends BaseController {
       $notes[] = 'updated '.$key.' from '.$original.' to '.$value;
     }
 
-    $before = $requirement->assignments->modelKeys();
-    sort($before);
-    $after = Input::get('requirement.assignments', []);
-    sort($after);
+    // $before = $requirement->assignments->modelKeys();
+    // sort($before);
+    // $after = Input::get('requirement.assignments', []);
+    // sort($after);
 
-    if (array_diff($before, $after) || array_diff($after, $before)) {
-      $requirement->assignments()->sync($after);
-      if (empty($after)) {
+    // if (array_diff($before, $after) || array_diff($after, $before)) {
+    //   $comment->type = 'assignment';
+    //   $requirement->assignments()->sync($after);
+    //   if (empty($after)) {
+    //     $notes[] = 'removed all assignments';
+    //   }
+    //   else {
+    //     $notes[] = 'changed the assignment to '.implode(', ', $requirement->assignments()->get()->lists('fullName'));
+    //   }
+    // }
+
+    $assignments = Input::get('requirement.assignments', []);
+    $change = (object)$requirement->assignments()->sync($assignments);
+    if (!empty($change->attached) || !empty($change->detached) || !empty($change->updated)) {
+      $comment->type = 'assignment';
+      if (empty($assignments)) {
         $notes[] = 'removed all assignments';
       }
       else {
@@ -67,13 +84,20 @@ class RequirementController extends BaseController {
       }
     }
 
-    $requirement->tags()->sync(Input::get('requirement.tags', []));
+    $tags = Input::get('requirement.tags', []);
+    $change = (object)$requirement->tags()->sync($tags);
+    if (!empty($change->attached) || !empty($change->detached) || !empty($change->updated)) {
+      $comment->type = 'tag';
+      if (empty($tags)) {
+        $notes[] = 'removed all tags';
+      }
+      else {
+        $notes[] = 'changed the tags to '.implode(', ', $requirement->tags()->get()->lists('name'));
+      }
+    }
 
     $requirement->save();
 
-    $comment = new Comment;
-    $comment->fill(Input::get('comment'));
-    $comment->type = 'comment';
     $comment->notes = implode(', ', $notes);
     $requirement->comments()->save($comment);
 

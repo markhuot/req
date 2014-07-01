@@ -159,7 +159,7 @@
       },
       callback: function(newOption) {
         var options = container.data('options');
-        options.push({id:newOption.id, html:newOption.name, selected:false});
+        options.push({id:newOption.id, html:newOption.html, selected:false});
         container.data('options', options);
         container.token('selectOption', newOption.id);
       }
