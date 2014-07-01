@@ -1,3 +1,5 @@
+$(document.body).removeClass('preload');
+
 $('select[data-chosen]').chosen();
 $('input[data-selectTwo]').select2({
   multiple: true,

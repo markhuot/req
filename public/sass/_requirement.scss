@@ -1,7 +1,27 @@
+@mixin fadeDown($delay:0s, $direction:"top") {
+	-webkit-transition: all 0.1s;
+	-webkit-transition-delay: $delay;
+	-webkit-transform: translateX(0px) translateY(0px);
+	opacity: 1;
+	.preload & {
+		opacity: 0;
+		@if $direction == "left" {
+			-webkit-transform: translateX(-10px);
+		}
+		@else if $direction == "right" {
+			-webkit-transform: translateX(10px);
+		}
+		@else {
+			-webkit-transform: translateY(-10px);
+		}
+	}
+}
+
 .requirement__title--full {
 	font-weight: 400;
 	font-size: 22px;
 	margin-bottom: 1em;
+	@include fadeDown(0);
 }
 
 .requirement__body--full {
@@ -9,6 +29,7 @@
 	font-weight: 200;
 	line-height: 1.5;
 	margin-bottom: 2em;
+	@include fadeDown(0.25s);
 }
 
 .requirement__notes__heading {
@@ -56,6 +77,13 @@
 		.requirement__notes__delete {
 			opacity: 1;
 		}
+	}
+
+	&:nth-child(1) {
+		@include fadeDown(0, $direction:"left");
+	}
+	&:nth-child(2) {
+		@include fadeDown(0.25s, $direction:"right");
 	}
 }
 
