@@ -4,6 +4,12 @@
 <div class="wrap">
 	<div class="content__body">
 		<h1 class="requirement__title--full">{{ requirement.title }} <small class="requirement__status--full status-txt-{{ requirement.status }}">{{ requirement.status }}</small></h1>
+		{#<div class="requirement__meta">
+			<p class="requirement__meta__item"><i class="fa fa-user"></i> Assigned: {% for user in requirement.assignments %}<a href="#">{{ user.fullName }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+			<p class="requirement__meta__item"><i class="fa fa-tags"></i> Tags: <a href="#">Name 1</a>, <a href="#">Name 2</a></p>
+			<p class="requirement__meta__item"><i class="fa fa-sitemap"></i> Related: <a href="#">Requirement A</a>, <a href="#">Requirement B</a>, <a href="#">Requirement C</a></p>
+		</div>#}
+
 		<div class="requirement__body--full">
 			{{ requirement.body }}
 		</div>
@@ -22,8 +28,21 @@
 		</ul>
 		{% endif %}
 	</div>
+
+	{#<div class="requirement__meta">
+		<p class="requirement__meta__item"><i class="fa fa-user"></i> {% for user in requirement.assignments %}<a href="#">{{ user.fullName }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+		<p class="requirement__meta__item"><i class="fa fa-tags"></i> <a href="#">Name 1</a>, <a href="#">Name 2</a>, <a href="#">Name 1</a>, <a href="#">Name 2</a></p>
+		<p class="requirement__meta__item"><i class="fa fa-sitemap"></i> <a href="#">Requirement A</a>, <a href="#">Requirement B</a>, <a href="#">Requirement C</a></p>
+	</div>#}
 </div>
-<div class="requirement__actions">
+<div class="requirement__block">
+	<div class="wrap">
+		<p class="requirement__block__item"><i class="fa fa-user"></i> {% for user in requirement.assignments %}<a href="#">{{ user.fullName }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+		<p class="requirement__block__item"><i class="fa fa-tags"></i> <a href="#">Name 1</a>, <a href="#">Name 2</a>, <a href="#">Name 1</a>, <a href="#">Name 2</a></p>
+		<p class="requirement__block__item"><i class="fa fa-sitemap"></i> <a href="#">Requirement A</a>, <a href="#">Requirement B</a>, <a href="#">Requirement C</a></p>
+	</div>
+</div>
+{#<div class="requirement__actions">
 	<div class="wrap">
 		<ul>
 			<li><a class="requirement__actions__item requirement__actions__button" href="#"><i class="fa fa-edit"></i> Edit</a></li>
@@ -32,7 +51,7 @@
 			<li class="requirement__actions__item"><i class="fa fa-sitemap"></i> Related: <a href="#">Requirement A</a>, <a href="#">Requirement B</a>, <a href="#">Requirement C</a></li>
 		</ul>
 	</div>
-</div>
+</div>#}
 <div class="timeline">
 	<div class="wrap">
 		<div class="timeline__body">

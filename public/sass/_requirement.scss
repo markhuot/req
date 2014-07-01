@@ -111,3 +111,38 @@
 .status-txt-rejected { color: #E93328; }
 .status-txt-delivered { color: $blue; }
 .status-txt-closed { color: grey; }
+
+.requirement__meta {
+	padding: 10px;
+	text-align: center;
+	margin-bottom: 2em;
+}
+.requirement__meta__item {
+	color: #ccc;
+	font-size: 14px;
+	margin-bottom: 0.5em;
+	display: inline-block;
+	margin-right: 20px;
+
+	a {
+		color: inherit;
+	}
+}
+
+.requirement__block {
+	background: #F9F8FB;
+	padding: 25px;
+}
+.requirement__block__item {
+	color: #ddd;
+	font-size: 14px;
+	margin-bottom: 1em;
+
+	a {
+		color: inherit;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}

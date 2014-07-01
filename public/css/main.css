@@ -23,7 +23,7 @@ td {
   padding: 8px 5px; }
 
 .wrap {
-  width: 800px;
+  max-width: 800px;
   margin: 0 auto;
   position: relative; }
 
@@ -115,6 +115,33 @@ td {
 
 .status-txt-closed {
   color: grey; }
+
+.requirement__meta {
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 2em; }
+
+.requirement__meta__item {
+  color: #ccc;
+  font-size: 14px;
+  margin-bottom: 0.5em;
+  display: inline-block;
+  margin-right: 20px; }
+  .requirement__meta__item a {
+    color: inherit; }
+
+.requirement__block {
+  background: #F9F8FB;
+  padding: 25px; }
+
+.requirement__block__item {
+  color: #ddd;
+  font-size: 14px;
+  margin-bottom: 1em; }
+  .requirement__block__item a {
+    color: inherit; }
+  .requirement__block__item:last-child {
+    margin-bottom: 0; }
 
 .comment__body {
   margin-bottom: 0.5em;
