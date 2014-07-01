@@ -4,6 +4,16 @@
 }
 
 .comment__notes {
-	color: #999;
+	color: #000;
+	opacity: 0.3;
 	font-size: 12px;
+}
+
+.note-added {
+	color: green;
+}
+
+.note-removed {
+	color: red;
+	text-decoration: line-through;
 }

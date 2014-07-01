@@ -53,64 +53,29 @@ class RequirementController extends BaseController {
     $notes = [];
     foreach ($requirement->getDirty() as $key => $value) {
       $original = $requirement->getOriginal($key);
-      $notes[] = 'updated '.$key.' from '.$original.' to '.$value;
+      $notes[] = ['key' => $key, 'before' => $original, 'after' => $value];
     }
 
-    // $before = $requirement->assignments->modelKeys();
-    // sort($before);
-    // $after = Input::get('requirement.assignments', []);
-    // sort($after);
-
-    // if (array_diff($before, $after) || array_diff($after, $before)) {
-    //   $comment->type = 'assignment';
-    //   $requirement->assignments()->sync($after);
-    //   if (empty($after)) {
-    //     $notes[] = 'removed all assignments';
-    //   }
-    //   else {
-    //     $notes[] = 'changed the assignment to '.implode(', ', $requirement->assignments()->get()->lists('fullName'));
-    //   }
-    // }
-
     $assignments = Input::get('requirement.assignments', []);
+    $original = implode(', ', $requirement->assignments->lists('fullName'));
     $change = (object)$requirement->assignments()->sync($assignments);
     if (!empty($change->attached) || !empty($change->detached) || !empty($change->updated)) {
       $comment->type = 'assignment';
-      if (empty($assignments)) {
-        $notes[] = 'removed all assignments';
-      }
-      else {
-        $notes[] = 'changed the assignment to '.implode(', ', $requirement->assignments()->get()->lists('fullName'));
-      }
+      $notes[] = ['key' => 'assignments', 'before' => $original, 'after' => implode(', ', $requirement->assignments()->get()->lists('fullName'))];
     }
 
     $tags = Input::get('requirement.tags', []);
+    $original = $requirement->tags->lists('name');
     $change = (object)$requirement->tags()->sync($tags);
     if (!empty($change->attached) || !empty($change->detached) || !empty($change->updated)) {
       $comment->type = 'tag';
-      if (empty($tags)) {
-        $notes[] = 'removed all tags';
-      }
-      else {
-        $notes[] = 'changed the tags to '.implode(', ', $requirement->tags()->get()->lists('name'));
-      }
+      $notes[] = ['key' => 'assignments', 'before' => $original, 'after' => implode(', ', $requirement->tags()->get()->lists('name'))];
     }
 
     $requirement->save();
 
-    $comment->notes = implode(', ', $notes);
+    $comment->notes = json_encode($notes);
     $requirement->comments()->save($comment);
-
-    // if ($notes) {
-    //   $notification = new Notification;
-    //   $notification->user_id = 1;
-    //   $notification->parent = 'Requirement';
-    //   $notification->parent_key = $requirement->id;
-    //   $notification->initiator = 'Comment';
-    //   $notification->initiator_key = $comment->id;
-    //   $notification->notes = implode(', ', $notes);
-    //   $notification->save();
-    // }
 
     return Redirect::route('requirement.show', [$account->subdomain, $project->slug, $requirement->id]);
   }
@@ -129,7 +94,7 @@ class RequirementController extends BaseController {
 
     $comment = new Comment;
     $comment->type = 'highlight';
-    $comment->notes = 'highlighted '.$highlight->text;
+    $comment->notes = json_encode([['key' => 'highlight', 'before' => '', 'after' => $highlight->text]]);
     $requirement->comments()->save($comment);
 
     return Response::json($highlight);

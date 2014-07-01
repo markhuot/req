@@ -25,7 +25,7 @@ class Comment extends Eloquent {
 
   public function icon()
   {
-    switch ($this->type) {
+    switch ($this->attributes['type']) {
       case 'highlight':
         return 'fa-quote-right';
       case 'tag':
@@ -35,6 +35,11 @@ class Comment extends Eloquent {
       default:
         return 'fa-comment';
     }
+  }
+
+  public function getNotesAttribute()
+  {
+    return json_decode($this->attributes['notes']);
   }
 
 }

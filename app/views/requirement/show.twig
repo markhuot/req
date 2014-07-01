@@ -72,7 +72,9 @@
 						{% endif %}
 						{% if comment.notes %}
 						<div class="comment__notes">
-							{{ comment.notes }}
+							{% for note in comment.notes %}
+								<p>set the {{ note.key }} <span data-note="{{ loop.index }}" data-before="{{ note.before }}" data-after="{{ note.after }}"></span></p>
+							{% endfor %}
 						</div>
 						{% endif %}
 					</div>
