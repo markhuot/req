@@ -1,6 +1,6 @@
 (function($) {
 
-  $.fn.selectOption = function(value, forced) {
+  function selectOption(value, forced) {
     var container = this;
     var options = this.data('options');
     var inputName = this.data('inputName');
@@ -23,41 +23,51 @@
     return this;
   }
 
-  $('[data-token]').each(function() {
-    var inputName = $(this).attr('name');
-    var inputId = $(this).attr('id');
+  $.fn.token = function(options) {
 
-    $(this).hide();
-    $(this).removeAttr('name');
-    $(this).removeAttr('id');
-
-    var options = [];
-    $(this).find('option').each(function() {
-      options.push({id: $(this).attr('value'), html:$(this).html(), selected:$(this).attr('selected')?true:false});
-    });
-
-    var container = $('<span />', {name: inputName, id: inputId, 'data-token-field':true, 'class':'token-field'});
-    container.data('options', options);
-    container.data('inputName', inputName);
-    container.data('inputId', inputId);
-
-    for (var i=0; len=options.length,i<len; i++) {
-      if (options[i].selected) {
-        container.selectOption(options[i].id, true);
-      }
+    if (options == 'selectOption') {
+      var args = Array.prototype.slice.call(arguments, 1);
+      return selectOption.apply(this, args);
     }
 
-    var input = $('<input type="text" data-token-input class="token-input" />');
-    $(container).append(input);
+    var opts = $.extend( {}, $.fn.token.defaults, options );
+    return this.each(function() {
+      var inputName = $(this).attr('name');
+      var inputId = $(this).attr('id');
 
-    container.on('keydown', function(event) {
-      if (event.keyCode == 13) {
-        return false;
+      $(this).hide();
+      $(this).removeAttr('name');
+      $(this).removeAttr('id');
+
+      var options = [];
+      $(this).find('option').each(function() {
+        options.push({id: $(this).attr('value'), html:$(this).html(), selected:$(this).attr('selected')?true:false});
+      });
+
+      var container = $('<span />', {name: inputName, id: inputId, 'data-token-field':true, 'class':'token-field'});
+      container.data('options', options);
+      container.data('inputName', inputName);
+      container.data('inputId', inputId);
+
+      for (var i=0; len=options.length,i<len; i++) {
+        if (options[i].selected) {
+          container.token('selectOption', options[i].id, true);
+        }
       }
-    });
 
-    $(this).after(container);
-  });
+      var input = $('<input type="text" data-token-input class="token-input" />');
+      $(container).append(input);
+
+      $(this).after(container);
+    });
+  }
+
+  $.fn.token.defaults = {
+    color: "#556b2f",
+    backgroundColor: "white"
+  }
+
+  $('[data-token]').token();
 
   $(document).on('click', '[data-token-field] [data-remove]', function() {
     var item = $(this).closest('[data-token-item]');
@@ -99,11 +109,11 @@
   });
 
   $(document).on('click', '[data-token-option]', function() {
-    $(this).closest('[data-token-field]').selectOption($(this).data('value'));
+    $(this).closest('[data-token-field]').token('selectOption', $(this).data('value'));
     return false;
   });
 
-  $(document).on('keyup', '[data-token-input]', function() {
+  $(document).on('keyup', '[data-token-input]', function(event) {
     var val = $(this).val();
     if (val === '') {
       $('[data-token-newOption]').remove();
@@ -116,6 +126,10 @@
     }
     newOption.data('value', val);
     newOption.html(val);
+
+    if (event.keyCode == 13) {
+      return false;
+    }
   });
 
   $(document).on('click', '[data-token-newOption]', function() {
@@ -124,7 +138,7 @@
       var options = container.data('options');
       options.push({id:newOption.id, html:newOption.name, selected:false});
       container.data('options', options);
-      container.selectOption(newOption.id);
+      container.token('selectOption', newOption.id);
     })
   });
 
