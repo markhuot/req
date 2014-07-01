@@ -65,11 +65,11 @@ class RequirementController extends BaseController {
     }
 
     $tags = Input::get('requirement.tags', []);
-    $original = $requirement->tags->lists('name');
+    $original = implode(', ', $requirement->tags->lists('name'));
     $change = (object)$requirement->tags()->sync($tags);
     if (!empty($change->attached) || !empty($change->detached) || !empty($change->updated)) {
       $comment->type = 'tag';
-      $notes[] = ['key' => 'assignments', 'before' => $original, 'after' => implode(', ', $requirement->tags()->get()->lists('name'))];
+      $notes[] = ['key' => 'tags', 'before' => $original, 'after' => implode(', ', $requirement->tags()->get()->lists('name'))];
     }
 
     $requirement->save();

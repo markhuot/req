@@ -174,3 +174,46 @@
 		margin-bottom: 0;
 	}
 }
+
+.requirement__id--list,
+.requirement__assignment--list {
+	width: 100px;
+	text-align: center;
+}
+
+.requirement__date--list {
+	width: 200px;
+	text-align: center;
+}
+
+.requirement__title--list {
+	position: relative;
+
+	strong {
+		color: #444;
+	}
+
+	a {
+		text-decoration: none;
+		color: #999;
+		display: block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		height: 2em;
+		-webkit-transform: translateY(-25%);
+	}
+}
+
+.requirement__assignment--list img {
+	width: 25px;
+	margin-right: -15px;
+
+	&:last-child {
+		margin-right: 0;
+	}
+}

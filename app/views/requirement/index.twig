@@ -1,11 +1,22 @@
 {% extends "layouts/default" %}
 
 {% block content %}
-<table>
+<div class="table-filter">
+	<strong>{{ requirements|length }} Requirements</strong>
+</div>
+<table class="requirement__table">
+	<tr>
+		<th></th>
+		<th>Title</th>
+		<th>Updated</th>
+		<th>Assigned</th>
+	</tr>
 	{% for requirement in requirements %}
 		<tr>
-			<td>{{ requirement.id }}</td>
-			<td><a href="{{ url_route('requirement.show', [account.subdomain, project.slug, requirement.id]) }}">{{ requirement.title }}</a></td>
+			<td class="requirement__id--list">{{ requirement.id }}</td>
+			<td class="requirement__title--list"><a href="{{ url_route('requirement.show', [account.subdomain, project.slug, requirement.id]) }}"><strong>{{ requirement.title }}</strong> {{ requirement.body }}</a></td>
+			<td class="requirement__date--list">{{ requirement.updated_at.diffForHumans }}</td>
+			<td class="requirement__assignment--list">{{ requirement.assignments.lists('avatarImage')|join|raw }}</td>
 		</tr>
 	{% endfor %}
 </table>
