@@ -12,6 +12,7 @@ body {
 	font-family: "Helvetica Neue";
 	font-weight: 300;
 	font-size: 12px;
+	-webkit-transform: translateZ(1px);
 }
 
 @import "headings";

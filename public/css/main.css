@@ -8,7 +8,8 @@ body {
   background: whiteSmoke;
   font-family: "Helvetica Neue";
   font-weight: 300;
-  font-size: 12px; }
+  font-size: 12px;
+  -webkit-transform: translateZ(1px); }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 200;
@@ -359,6 +360,8 @@ textarea {
   .header a {
     color: inherit;
     text-decoration: none; }
+    .header a:hover {
+      text-decoration: underline; }
   .header i.fa-chevron-right {
     color: rgba(255, 255, 255, 0.2);
     margin: 0 1em; }
@@ -381,13 +384,27 @@ textarea {
 
 .header__user {
   float: right;
-  border: 2px solid rgba(255, 255, 255, 0.4);
   width: 20px;
   height: 20px;
-  padding-top: 2px;
+  padding-top: 4px;
   text-align: center;
   font-size: 10px;
-  border-radius: 50%; }
+  position: relative;
+  -webkit-perspective: 428;
+  -webkit-perspective-origin-x: 50%;
+  -webkit-perspective-origin-y: 50%; }
+  .header__user:after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    -webkit-transition: all 0.5s; }
+  .header__user:hover:after {
+    -webkit-transform: rotateY(180deg); }
 
 .header__username {
   display: none; }
