@@ -59,7 +59,7 @@
 				{% for comment in requirement.comments %}
 					<div id="comment-{{ comment.id }}" class="timeline__item comment" data-comment data-comment-id="{{ comment.id }}">
 						<div class="timeline__meta">
-							<i class="fa fa-comment timeline__meta__icon"></i>
+							<i class="fa {% if comment.type == 'highlight' %}fa-quote-right{% else %}fa-comment{% endif %} timeline__meta__icon"></i>
 							<p class="timeline__meta__label">
 								<span class="timeline__meta__label__author">Mark Huot</span>
 								<span class="timeline__meta__label__date">{{ comment.created_at.diffForHumans }}</span>

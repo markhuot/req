@@ -73,6 +73,7 @@ class RequirementController extends BaseController {
 
     $comment = new Comment;
     $comment->fill(Input::get('comment'));
+    $comment->type = 'comment';
     $comment->notes = implode(', ', $notes);
     $requirement->comments()->save($comment);
 
@@ -103,6 +104,7 @@ class RequirementController extends BaseController {
     $highlight->save();
 
     $comment = new Comment;
+    $comment->type = 'highlight';
     $comment->notes = 'highlighted '.$highlight->text;
     $requirement->comments()->save($comment);
 
@@ -112,6 +114,7 @@ class RequirementController extends BaseController {
   public function deleteHighlight(Account $account, Project $project, Requirement $requirement, Comment $comment, Highlight $highlight)
   {
     $comment = new Comment;
+    $comment->type = 'highlight';
     $comment->notes = 'removed the highlight '.$highlight->text;
     $requirement->comments()->save($comment);
 

@@ -17,6 +17,7 @@ class CreateCommentsTable extends Migration {
       $table->increments('id');
       $table->unsignedInteger('requirement_id');
       $table->string('body')->nullable();
+      $table->string('type')->default('comment');
       $table->string('notes');
       $table->timestamps();
 
