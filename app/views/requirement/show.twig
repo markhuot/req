@@ -98,29 +98,51 @@
 					<span class="comment-form__status__rarr comment-form__status__step--conditional" data-toggle-reciever="accepted"><i class="fa fa-arrow-right"></i></span>
 					<span class="comment-form__status__step comment-form__status__step--conditional" data-toggle-reciever="accepted"><input type="radio" name="requirement[status]" value="closed" id="requirement-status-closed" {{ requirement.status=='closed'?'checked="checked"':'' }} data-toggle-trigger="accepted" /> <label for="requirement-status-closed" class="status-bg-closed">Closed</label></span>
 				</p>
-				<p class="form__item comment-form__body">
-					<label for="requirement-body">Comment</label>
-					<textarea id="requirement-body" name="comment[body]"></textarea>
-				</p>
-				<p class="form__item">
-					<label for="requirement-assignment">Assign</label>
-					<select multiple="multiple" id="requirement-assignment" name="requirement[assignments][]" data-token data-placeholder="Select users...">
-						{% for user in account.users %}
-							<option value="{{ user.id }}" {{ requirement.assignments.contains(user.id) ? 'selected="selected"' : '' }}>{{ user.fullName }}</option>
-						{% endfor %}
-					</select>
-				</p>
-				<p class="form__item">
-					<label for="requirement-tags">Tags</label>
-					<select multiple="multiple" id="requirement-tags" name="requirement[tags][]" data-token data-tags data-placeholder="Select tags...">
-						{% for tag in project.tags %}
-							<option value="{{ tag.id }}" {{ requirement.tags.contains(tag.id) ? 'selected="selected"' : '' }}>{{ tag.name }}</option>
-						{% endfor %}
-					</select>
-				</p>
-				<div class="form__item">
-					<label for="requirement-notify">Notify</label>
-					<p>We'll let <a href="#">John, Jack, and Mary</a> know about this comment.</p>
+				<div class="comment-form__container">
+					<div class="form__item comment-form__body" data-toggle-reciever="comment-body">
+						<label for="comment-body" data-toggle-trigger="comment-body" data-toggle-class="form__item--collapsed"><i class="fa fa-comment"></i> Comment</label>
+						<div class="form__item__content">
+							<textarea id="comment-body" name="comment[body]"></textarea>
+						</div>
+					</div>
+					<div class="form__item form__item--collapsed" data-toggle-reciever="requirement-title">
+						<label for="requirement-title" data-toggle-trigger="requirement-title" data-toggle-class="form__item--collapsed"><i class="fa fa-header"></i> Title</label>
+						<div class="form__item__content">
+							<input type="text" id="requirement-title" name="requirement[title]" placeholder="Title..." value="{{ requirement.title }}" />
+						</div>
+					</div>
+					<div class="form__item form__item--collapsed" data-toggle-reciever="requirement-body">
+						<label for="requirement-body" data-toggle-trigger="requirement-body" data-toggle-class="form__item--collapsed"><i class="fa fa-align-left"></i> Body</label>
+						<div class="form__item__content">
+							<textarea id="requirement-body" name="requirement[body]">{{ requirement.body }}</textarea>
+						</div>
+					</div>
+					<div class="form__item form__item--collapsed" data-toggle-reciever="requirement-assignment">
+						<label for="requirement-assignment" data-toggle-trigger="requirement-assignment" data-toggle-class="form__item--collapsed"><i class="fa fa-user"></i> Assign</label>
+						<div class="form__item__content">
+							<select multiple="multiple" id="requirement-assignment" name="requirement[assignments][]" data-token data-placeholder="Select users...">
+								{% for user in account.users %}
+									<option value="{{ user.id }}" {{ requirement.assignments.contains(user.id) ? 'selected="selected"' : '' }}>{{ user.fullName }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="form__item form__item--collapsed" data-toggle-reciever="requirement-tags">
+						<label for="requirement-tags" data-toggle-trigger="requirement-tags" data-toggle-class="form__item--collapsed"><i class="fa fa-tags"></i> Tags</label>
+						<div class="form__item__content">
+							<select multiple="multiple" id="requirement-tags" name="requirement[tags][]" data-token data-tags data-placeholder="Select tags...">
+								{% for tag in project.tags %}
+									<option value="{{ tag.id }}" {{ requirement.tags.contains(tag.id) ? 'selected="selected"' : '' }}>{{ tag.name }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="form__item form__item--collapsed" data-toggle-reciever="requirement-notify">
+						<label for="requirement-notify" data-toggle-trigger="requirement-notify" data-toggle-class="form__item--collapsed"><i class="fa fa-paper-plane"></i> Notify</label>
+						<div class="form__item__content">
+							<p>We'll let <a href="#">John, Jack, and Mary</a> know about this comment.</p>
+						</div>
+					</div>
 				</div>
 				<p class="form__item">
 					<button><i class="fa fa-mail-reply-all"></i> Add Comment</button>
@@ -134,6 +156,11 @@
 {% block javascript %}
 {{ parent() }}
 <script type="text/javascript">
+	$(document).on('click', '[data-toggle-trigger]', function() {
+		var key = $(this).data('toggle-trigger');
+		var className = $(this).data('toggle-class') || 'visible';
+		$('[data-toggle-reciever="'+key+'"]').toggleClass(className);
+	});
 	$(document).on('change', 'input:radio', function() {
 		$('[data-checked]').removeAttr('data-checked').trigger('change');
 		var key = $(this).data('toggle-trigger');
@@ -158,7 +185,7 @@
 		return false;
 	});
 
-	$(document).on('mouseup touchup', function() {
+	$(document).on('mouseup touchup', '[data-highlightable]', function() {
 		var selection = window.getSelection();
 		var firstRange = selection.getRangeAt(0);
 		if (!firstRange || firstRange.collapsed) { return; }

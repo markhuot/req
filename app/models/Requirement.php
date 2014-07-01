@@ -3,6 +3,7 @@
 class Requirement extends Eloquent {
 
   protected $fillable = [
+    'title',
     'body',
     'status',
   ];

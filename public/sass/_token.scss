@@ -25,7 +25,9 @@
 
 .token-input {
 	-webkit-appearance: none;
-	border: none;
+	border: none !important;
+	padding: 0 !important;
+	width: 10em !important;
 }
 
 .token-input:focus {

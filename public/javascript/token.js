@@ -47,7 +47,6 @@
       var container = $('<span />', {name: inputName, id: inputId, 'data-token-field':true, 'class':'token-field'});
       container.data('options', options);
       container.data('inputName', inputName);
-      container.data('inputId', inputId);
 
       for (var i=0; len=options.length,i<len; i++) {
         if (options[i].selected) {
@@ -56,6 +55,7 @@
       }
 
       var input = $('<input type="text" data-token-input class="token-input" />');
+      input.attr('id', inputId);
       $(container).append(input);
 
       $(this).after(container);
