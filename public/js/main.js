@@ -31,11 +31,11 @@ $.fn.selectOption = function(value, forced) {
       options[i].selected = true;
       this.data('options', options);
 
-      var option = $('<span />', {'data-id':options[i].id, 'data-selected':options[i].selected, 'data-token-item':true});
+      var option = $('<span />', {'data-id':options[i].id, 'data-selected':options[i].selected, 'data-token-item':true, 'class':'token-item'});
       option.html(options[i].html);
       var input = $('<input />', {'type':'hidden', 'name':inputName, 'value':options[i].id});
       option.append(input);
-      var remove = $('<a href="#" data-remove>&times;</a>');
+      var remove = $('<a href="#" data-remove class="token-item-remove">&times;</a>');
       option.append(remove);
       container.append(option);
     }
@@ -56,7 +56,7 @@ $('[data-token]').each(function() {
     options.push({id: $(this).attr('value'), html:$(this).html(), selected:$(this).attr('selected')?true:false});
   });
 
-  var container = $('<span />', {name: inputName, id: inputId, 'data-token-field':true});
+  var container = $('<span />', {name: inputName, id: inputId, 'data-token-field':true, 'class':'token-field'});
   container.data('options', options);
   container.data('inputName', inputName);
   container.data('inputId', inputId);
@@ -67,7 +67,7 @@ $('[data-token]').each(function() {
     }
   }
 
-  var input = $('<input type="text" data-token-input />');
+  var input = $('<input type="text" data-token-input class="token-input" />');
   $(container).append(input);
 
   container.on('keydown', function(event) {
@@ -103,9 +103,9 @@ $(document).on('focus', '[data-token-input]', function() {
   $('[data-token-optionList]').remove();
   var field = $(this).closest('[data-token-field]');
   var options = field.data('options');
-  var optionList = $('<ul />', {'data-token-optionList':true});
+  var optionList = $('<ul />', {'data-token-optionList':true, 'class':'token-optionList'});
   for (var i=0; len=options.length, i<len; i++) {
-    var listItem = $('<li />', {'data-value':options[i].id, 'data-token-option':true});
+    var listItem = $('<li />', {'data-value':options[i].id, 'data-token-option':true, 'class':'token-option'});
     listItem.html(options[i].html);
     optionList.append(listItem);
   }
@@ -132,7 +132,7 @@ $(document).on('keyup', '[data-token-input]', function() {
 
   var newOption = $('[data-token-newOption]');
   if (!newOption.length) {
-    var newOption = $('<li data-token-newOption />').prependTo('[data-token-optionList]');
+    var newOption = $('<li data-token-newOption class="token-newOption" />').prependTo('[data-token-optionList]');
   }
   newOption.data('value', val);
   newOption.html(val);

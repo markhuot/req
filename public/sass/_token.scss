@@ -1,0 +1,55 @@
+.token-field {
+	border: 1px solid #ccc;
+	display: inline-block;
+	padding: 3px;
+	position: relative;
+}
+
+.token-item {
+	display: inline-block;
+	border: 1px solid #eee;
+	padding: 3px;
+	margin-right: 0.5em;
+	border-radius: 3px;
+	background-color: whiteSmoke;
+}
+
+.token-item-remove {
+	text-decoration: none;
+	color: #999;
+	font-weight: bold;
+	margin-left: 0.5em;
+	position: relative;
+	top: -1px;
+}
+
+.token-input {
+	-webkit-appearance: none;
+	border: none;
+}
+
+.token-input:focus {
+	outline: none;
+}
+
+.token-optionList {
+	position: absolute;
+	top: 100%;
+	left: -1px;
+	right: -1px;
+	list-style: none;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-color: #fff #ccc #ccc;
+	z-index: 9999;
+}
+
+.token-option, .token-newOption {
+	cursor: pointer;
+	padding: 10px;
+}
+
+.token-option:hover, .token-newOption {
+	background: #ccc;
+	color: #fff;
+}

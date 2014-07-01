@@ -111,6 +111,10 @@ class RequirementController extends BaseController {
 
   public function deleteHighlight(Account $account, Project $project, Requirement $requirement, Comment $comment, Highlight $highlight)
   {
+    $comment = new Comment;
+    $comment->notes = 'removed the highlight '.$highlight->text;
+    $requirement->comments()->save($comment);
+
     $highlight->delete();
 
     return Redirect::route('requirement.show', [$account->subdomain, $project->slug, $requirement->id]);
