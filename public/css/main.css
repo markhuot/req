@@ -276,19 +276,25 @@ textarea {
   .comment-form__container label {
     padding: 10px;
     margin: 0;
-    cursor: pointer; }
+    cursor: pointer;
+    color: #34b0f0; }
   .comment-form__container i.fa {
     color: #999;
     margin-right: 0.5em;
     color: #34b0f0; }
   .comment-form__container .form__item {
     margin: 0;
-    border-bottom: 1px solid #ccc; }
+    border-bottom: 1px solid #ccc;
+    -webkit-transition: all 0.5s; }
     .comment-form__container .form__item:last-child {
       border: none; }
 
+.form__item--collapsed:hover {
+  background: whiteSmoke; }
 .form__item--collapsed i.fa {
   color: #999; }
+.form__item--collapsed label {
+  color: #666; }
 .form__item--collapsed .form__item__content {
   display: none; }
 
