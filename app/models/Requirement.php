@@ -31,4 +31,9 @@ class Requirement extends Eloquent {
     return $this->hasManyThrough('Highlight', 'Comment');
   }
 
+  public function tags()
+  {
+    return $this->belongsToMany('Tag');
+  }
+
 }

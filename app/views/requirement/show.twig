@@ -37,8 +37,8 @@
 </div>
 <div class="requirement__block">
 	<div class="wrap">
-		<p class="requirement__block__item"><i class="fa fa-user"></i> {% for user in requirement.assignments %}<a href="#">{{ user.fullName }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
-		<p class="requirement__block__item"><i class="fa fa-tags"></i> <a href="#">Name 1</a>, <a href="#">Name 2</a>, <a href="#">Name 1</a>, <a href="#">Name 2</a></p>
+		{% if requirement.assignments.count %}<p class="requirement__block__item"><i class="fa fa-user"></i> {% for user in requirement.assignments %}<a href="#">{{ user.fullName }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+		{% if requirement.tags.count %}<p class="requirement__block__item"><i class="fa fa-tags"></i> {% for tag in requirement.tags %}<a href="#">{{ tag.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
 		<p class="requirement__block__item"><i class="fa fa-sitemap"></i> <a href="#">Requirement A</a>, <a href="#">Requirement B</a>, <a href="#">Requirement C</a></p>
 	</div>
 </div>
@@ -107,6 +107,14 @@
 					<select multiple="multiple" id="requirement-assignment" name="requirement[assignments][]" data-chosen data-placeholder="Select users...">
 						{% for user in account.users %}
 							<option value="{{ user.id }}" {{ requirement.assignments.contains(user.id) ? 'selected="selected"' : '' }}>{{ user.fullName }}</option>
+						{% endfor %}
+					</select>
+				</p>
+				<p class="form__item">
+					<label for="requirement-tags">Tags</label>
+					<select multiple="multiple" id="requirement-tags" name="requirement[tags][]" data-chosen data-placeholder="Select tags...">
+						{% for tag in project.tags %}
+							<option value="{{ tag.id }}" {{ requirement.tags.contains(tag.id) ? 'selected="selected"' : '' }}>{{ tag.name }}</option>
 						{% endfor %}
 					</select>
 				</p>

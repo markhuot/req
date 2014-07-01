@@ -12,4 +12,9 @@ class Project extends Eloquent {
     return $this->hasMany('Requirement');
   }
 
+  public function tags()
+  {
+    return $this->hasMany('Tag');
+  }
+
 }

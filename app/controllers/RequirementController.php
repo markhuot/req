@@ -67,6 +67,8 @@ class RequirementController extends BaseController {
       }
     }
 
+    $requirement->tags()->sync(Input::get('requirement.tags', []));
+
     $requirement->save();
 
     $comment = new Comment;
