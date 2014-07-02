@@ -47,6 +47,7 @@
       var container = $('<span />', {name: inputName, id: inputId, 'data-token-field':true, 'class':'token-field'});
       container.data('options', options);
       container.data('inputName', inputName);
+      container.data('originalInput', $(this));
 
       for (var i=0; len=options.length,i<len; i++) {
         if (options[i].selected) {
@@ -112,7 +113,7 @@
       }
     }
 
-    field.trigger('lozenge:fetch', lozenge);
+    field.data('originalInput').trigger('lozenge:fetch', lozenge);
     if (lozenge.defaultPrevented == false) {
       lozenge.callback(options);
     }
@@ -165,7 +166,7 @@
       }
     }
 
-    container.trigger('lozenge:store', lozenge);
+    container.data('originalInput').trigger('lozenge:store', lozenge);
   });
 
 })(jQuery);
