@@ -90,32 +90,56 @@
     return false;
   });
 
-  $(document).on('focus', '[data-token-input]', function() {
-    $('[data-token-optionList]').remove();
+  $(document).on('focus keyup', '[data-token-input]', function() {
     var input = $(this);
     var field = input.closest('[data-token-field]');
     var options = field.data('options');
 
+    var optionList = field.find('[data-token-optionList]');
+    if (!optionList.length) {
+      optionList = $('<ul />', {'data-token-optionList':true, 'class':'token-optionList'});
+      input.after(optionList);
+    }
+
     var lozenge = {
+      value: $(this).val(),
       defaultPrevented: false,
       preventDefault: function() {
         lozenge.defaultPrevented = true;
       },
-      callback: function(fetchedOptions) {
-        var optionList = $('<ul />', {'data-token-optionList':true, 'class':'token-optionList'});
-        for (var i=0; len=fetchedOptions.length, i<len; i++) {
-          var listItem = $('<li />', {'data-value':fetchedOptions[i].id, 'data-token-option':true, 'class':'token-option'});
-          if (fetchedOptions[i].text) { listItem.text(fetchedOptions[i].text); }
-          if (fetchedOptions[i].html) { listItem.html(fetchedOptions[i].html); }
-          optionList.append(listItem);
+      createOption: function(value) {
+        if (value) {
+          var listItem = optionList.find('[data-token-newOption]');
+          if (!listItem.length) {
+            listItem = $('<li />', {'data-id':'null', 'data-value':value, 'data-token-option':true, 'data-token-newOption':true, 'class':'token-newOption'});
+            optionList.prepend(listItem);
+          }
+          listItem.data('value', value);
+          listItem.text(value);
         }
-        input.after(optionList);
+        else {
+          $('[data-token-newOption]').remove();
+        }
+      },
+      addOption: function(option) {
+        var listItem = optionList.find('[data-value="'+option.id+'"]');
+          if (!listItem.length) {
+            listItem = $('<li />', {'data-value':option.id, 'data-token-option':true, 'class':'token-option'});
+            if (option.text) { listItem.text(option.text); }
+            if (option.html) { listItem.html(option.html); }
+            optionList.append(listItem);
+          }
+      },
+      addOptions: function(fetchedOptions) {
+        for (var i=0; len=fetchedOptions.length, i<len; i++) {
+          lozenge.addOption(fetchedOptions[i])
+        }
       }
     }
 
     field.data('originalInput').trigger('lozenge:fetch', lozenge);
     if (lozenge.defaultPrevented == false) {
-      lozenge.callback(options);
+      lozenge.addOptions(options);
     }
   });
 
@@ -130,29 +154,11 @@
     return false;
   });
 
-  $(document).on('keyup', '[data-token-input]', function(event) {
-    var val = $(this).val();
-    if (val === '') {
-      $('[data-token-newOption]').remove();
-      return;
-    }
-
-    var newOption = $('[data-token-newOption]');
-    if (!newOption.length) {
-      var newOption = $('<li data-token-newOption class="token-newOption" />').prependTo('[data-token-optionList]');
-    }
-    newOption.data('value', val);
-    newOption.html(val);
-
-    if (event.keyCode == 13) {
-      return false;
-    }
-  });
-
   $(document).on('click', '[data-token-newOption]', function() {
     var container = $(this).closest('[data-token-field]');
 
     var lozenge = {
+      id: $(this).data('id'),
       value: $(this).data('value'),
       defaultPrevented: false,
       preventDefault: function() {

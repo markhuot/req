@@ -15,15 +15,19 @@ $('[data-note]').each(function() {
 });
 
 $(document).on('lozenge:fetch', '[data-tags]', function(event, lozenge) {
-  console.log(this);
   lozenge.preventDefault();
+  lozenge.createOption(lozenge.value);
   $.get(TAGS_URI, function(tags) {
-    lozenge.callback(tags.map(function(t){ return {"id":t.id, "html":t.name}; }));
+    $(tags).each(function() {
+      if (this.name == lozenge.value) {
+        lozenge.createOption(false);
+      }
+      lozenge.addOption({"id":this.id, "html":this.name});
+    });
   });
 });
 
 $(document).on('lozenge:store', '[data-tags]', function(event, lozenge) {
-  console.log(this);
   lozenge.preventDefault();
   $.post(TAGS_URI, {'tag':{'name':lozenge.value}}, function(tag) {
     lozenge.callback({"id":tag.id, "html":tag.name});
@@ -32,8 +36,12 @@ $(document).on('lozenge:store', '[data-tags]', function(event, lozenge) {
 
 $(document).on('lozenge:fetch', '[data-search]', function(event, lozenge) {
   lozenge.preventDefault();
-  var options = [
-    {'id': 'status:accepted', 'html':'Status: Accepted'}
-  ];
-  lozenge.callback(options);
+  lozenge.createOption(lozenge.value);
+  lozenge.addOptions([
+    {'id': 'status:pending', 'html':'Status: Pending'},
+    {'id': 'status:accepted', 'html':'Status: Accepted'},
+    {'id': 'status:rejected', 'html':'Status: Rejected'},
+    {'id': 'status:delivered', 'html':'Status: Delivered'},
+    {'id': 'status:closed', 'html':'Status: Closed'}
+  ]);
 });
