@@ -7,7 +7,7 @@
 		<input type="text" placeholder="Search..." />
 	</div>
 	<ul class="table-filter__view">
-		<li><a href="#"><i class="fa fa-bars"></i></a></li>
+		<li class="active"><a href="#"><i class="fa fa-bars"></i></a></li>
 		<li><a href="#"><i class="fa fa-th-large"></i></a></li>
 	</ul>
 </div>
@@ -15,6 +15,7 @@
 	<tr>
 		<th></th>
 		<th>Title</th>
+		<th>Status</th>
 		<th>Updated</th>
 		<th>Assigned</th>
 	</tr>
@@ -22,6 +23,7 @@
 		<tr>
 			<td class="requirement__id--list">{{ requirement.id }}</td>
 			<td class="requirement__title--list"><a href="{{ url_route('requirement.show', [account.subdomain, project.slug, requirement.id]) }}"><strong>{{ requirement.title }}</strong> {{ requirement.body }}</a></td>
+			<td class="requirement__status--list requirement__status--list--{{ requirement.status }}">{{ requirement.status }}</td>
 			<td class="requirement__date--list">{{ requirement.updated_at.diffForHumans }}</td>
 			<td class="requirement__assignment--list">{{ requirement.assignments.lists('avatarImage')|join|raw }}</td>
 		</tr>

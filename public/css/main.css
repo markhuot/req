@@ -87,26 +87,50 @@ th {
   position: -o-sticky;
   top: 0;
   background: rgba(255, 255, 255, 0.9);
-  padding: 25px 8px;
-  text-align: center; }
+  padding: 25px 20px;
+  text-align: center;
+  z-index: 9999; }
+  .table-filter:after {
+    content: "";
+    display: table;
+    clear: both; }
 
 .table-filter__heading {
-  float: left; }
+  float: left;
+  font-size: 24px;
+  font-weight: 200;
+  color: #444; }
 
 .table-filter__search {
   width: 70%;
   display: inline-block; }
   .table-filter__search input[type="text"] {
     border: none;
-    padding: 0; }
+    padding: 0;
+    background: none; }
 
 .table-filter__view {
   display: inline-block;
-  float: right; }
+  float: right;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  background: #fff;
+  overflow: hidden; }
   .table-filter__view li {
     display: inline; }
   .table-filter__view a {
-    display: inline-block; }
+    display: inline-block;
+    padding: 8px 12px;
+    border-right: 1px solid #cccccc;
+    float: left;
+    font-size: 14px;
+    color: #444; }
+  .table-filter__view li:last-child a {
+    border-right: none; }
+  .table-filter__view li.active a {
+    color: #34b0f0;
+    background: #EDF9FF;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); }
 
 .wrap {
   max-width: 800px;
@@ -259,7 +283,32 @@ th {
   .requirement__block__item:last-child {
     margin-bottom: 0; }
 
-.requirement__id--list,
+.requirement__id--list {
+  width: 50px;
+  padding-left: 20px; }
+
+.requirement__status--list {
+  width: 100px;
+  text-align: center;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600; }
+
+.requirement__status--list--pending {
+  color: #DFCC27; }
+
+.requirement__status--list--accepted {
+  color: #5C9728; }
+
+.requirement__status--list--rejected {
+  color: #E93328; }
+
+.requirement__status--list--delivered {
+  color: #34b0f0; }
+
+.requirement__status--list--closed {
+  color: grey; }
+
 .requirement__assignment--list {
   width: 100px;
   text-align: center; }
@@ -291,6 +340,9 @@ th {
   margin-right: -15px; }
   .requirement__assignment--list img:last-child {
     margin-right: 0; }
+
+.requirement__table tr:hover td {
+  background: #FCFFD5; }
 
 .comment__body {
   margin-bottom: 0.5em;
@@ -531,7 +583,8 @@ textarea {
   background: #2b303a;
   color: rgba(255, 255, 255, 0.4);
   font-size: 14px;
-  font-weight: 200; }
+  font-weight: 200;
+  padding: 0 20px; }
   .header a {
     color: inherit;
     text-decoration: none; }

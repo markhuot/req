@@ -21,14 +21,12 @@
 		<![endif]-->
 
 		<div class="header">
-			<div class="wrap">
-				<div class="header__body">
-					<a href="#"><i class="fa fa-dashboard"></i></a> {% if project %}<i class="fa fa-chevron-right"></i> <a href="#">{{ project.name }}</a>{% endif %}</h1>
-					{% if project %}
-						<i class="fa fa-chevron-right"></i><a href="{{ url_route('requirement.index', [account.subdomain, project.slug]) }}">Requirements</a>
-					{% endif %}
-					<a class="header__user" href="{{ url_route('settings.index', account.subdomain) }}"><i class="fa fa-user"></i> <span class="header__username">{{ user.fullName }}</span></a>
-				</div>
+			<div class="header__body">
+				<a href="#"><i class="fa fa-dashboard"></i></a> {% if project %}<i class="fa fa-chevron-right"></i> <a href="#">{{ project.name }}</a>{% endif %}</h1>
+				{% if project %}
+					<i class="fa fa-chevron-right"></i><a href="{{ url_route('requirement.index', [account.subdomain, project.slug]) }}">Requirements</a>
+				{% endif %}
+				<a class="header__user" href="{{ url_route('settings.index', account.subdomain) }}"><i class="fa fa-user"></i> <span class="header__username">{{ user.fullName }}</span></a>
 			</div>
 		</div>
 

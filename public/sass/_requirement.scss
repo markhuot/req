@@ -175,7 +175,24 @@
 	}
 }
 
-.requirement__id--list,
+.requirement__id--list {
+	width: 50px;
+	padding-left: 20px;
+}
+.requirement__status--list {
+	width: 100px;
+	text-align: center;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: 600;
+}
+
+.requirement__status--list--pending { color: #DFCC27; }
+.requirement__status--list--accepted { color: #5C9728; }
+.requirement__status--list--rejected { color: #E93328; }
+.requirement__status--list--delivered { color: $blue; }
+.requirement__status--list--closed { color: grey; }
+
 .requirement__assignment--list {
 	width: 100px;
 	text-align: center;
@@ -215,5 +232,11 @@
 
 	&:last-child {
 		margin-right: 0;
+	}
+}
+
+.requirement__table {
+	tr:hover td {
+		background: #FCFFD5;
 	}
 }
