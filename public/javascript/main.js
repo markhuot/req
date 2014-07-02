@@ -21,7 +21,7 @@ $(document).on('lozenge:fetch', '[data-tags]', function(event, lozenge) {
   });
 });
 
-$(document).on('lozenge:store', function(event, lozenge) {
+$(document).on('lozenge:store', '[data-tags]', function(event, lozenge) {
   lozenge.preventDefault();
   $.post(TAGS_URI, {'tag':{'name':lozenge.value}}, function(tag) {
     lozenge.callback({"id":tag.id, "html":tag.name});
