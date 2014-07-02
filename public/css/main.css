@@ -87,7 +87,26 @@ th {
   position: -o-sticky;
   top: 0;
   background: rgba(255, 255, 255, 0.9);
-  padding: 25px 8px; }
+  padding: 25px 8px;
+  text-align: center; }
+
+.table-filter__heading {
+  float: left; }
+
+.table-filter__search {
+  width: 70%;
+  display: inline-block; }
+  .table-filter__search input[type="text"] {
+    border: none;
+    padding: 0; }
+
+.table-filter__view {
+  display: inline-block;
+  float: right; }
+  .table-filter__view li {
+    display: inline; }
+  .table-filter__view a {
+    display: inline-block; }
 
 .wrap {
   max-width: 800px;

@@ -24,4 +24,32 @@ th {
 	top: 0;
 	background: rgba(255,255,255,0.9);
 	padding: 25px 8px;
+	text-align: center;
+}
+
+.table-filter__heading {
+	float: left;
+}
+
+.table-filter__search {
+	width: 70%;
+	display: inline-block;
+
+	input[type="text"] {
+		border: none;
+		padding: 0;
+	}
+}
+
+.table-filter__view {
+	display: inline-block;
+	float: right;
+
+	li {
+		display: inline;
+	}
+
+	a {
+		display: inline-block;
+	}
 }

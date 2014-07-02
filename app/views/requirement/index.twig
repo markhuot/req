@@ -2,7 +2,14 @@
 
 {% block content %}
 <div class="table-filter">
-	<strong>{{ requirements|length }} Requirements</strong>
+	<strong class="table-filter__heading">{{ requirements|length }} Requirements</strong>
+	<div class="table-filter__search">
+		<input type="text" placeholder="Search..." />
+	</div>
+	<ul class="table-filter__view">
+		<li><a href="#"><i class="fa fa-bars"></i></a></li>
+		<li><a href="#"><i class="fa fa-th-large"></i></a></li>
+	</ul>
 </div>
 <table class="requirement__table">
 	<tr>
