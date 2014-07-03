@@ -15,7 +15,7 @@ $('[data-note]').each(function() {
 });
 
 $(document).on('lozenge:fetch', '[data-tags]', function(event, lozenge) {
-  lozenge.preventDefault();
+  event.preventDefault();
   lozenge.createOption(lozenge.value);
   $.get(TAGS_URI, function(tags) {
     $(tags).each(function() {
@@ -28,14 +28,14 @@ $(document).on('lozenge:fetch', '[data-tags]', function(event, lozenge) {
 });
 
 $(document).on('lozenge:store', '[data-tags]', function(event, lozenge) {
-  lozenge.preventDefault();
+  event.preventDefault();
   $.post(TAGS_URI, {'tag':{'name':lozenge.value}}, function(tag) {
     lozenge.callback({"id":tag.id, "html":tag.name});
   });
 });
 
 $(document).on('lozenge:fetch', '[data-search]', function(event, lozenge) {
-  lozenge.preventDefault();
+  event.preventDefault();
   lozenge.createOption(lozenge.value);
   lozenge.addOptions([
     {'id': 'status:pending', 'html':'Status: Pending'},
@@ -44,4 +44,9 @@ $(document).on('lozenge:fetch', '[data-search]', function(event, lozenge) {
     {'id': 'status:delivered', 'html':'Status: Delivered'},
     {'id': 'status:closed', 'html':'Status: Closed'}
   ]);
+});
+
+$(document).on('lozenge:store', '[data-search]', function(event, lozenge) {
+  event.preventDefault();
+  lozenge.callback({"id":lozenge.value, "html":lozenge.value});
 });

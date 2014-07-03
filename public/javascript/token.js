@@ -1,5 +1,52 @@
 (function($) {
 
+  function OptionList() {
+    this.containers = [];
+    this.options = [];
+  }
+
+  OptionList.prototype.createOption = function(label) {
+    return this;
+  }
+
+  OptionList.prototype.addOption = function(key, label) {
+    this.options.push({'key':key, 'label':label});
+    return this;
+  }
+
+  OptionList.prototype.addOptions = function(options) {
+    for (var i=0,len=options.length; i<len; i++) {
+      this.addOption(options[i]);
+    }
+    return this;
+  }
+
+  OptionList.prototype.clearOptions = function() {
+    this.options = [];
+  }
+
+  OptionList.prototype.find = function(key) {
+    for (var i=0,len=this.options.length; i<len; i++) {
+      if (this.options[i].key === key) {
+        return this.options[i];
+      }
+    }
+    return false;
+  }
+
+  OptionList.prototype.attach = function(container) {
+    this.containers.push(container);
+  }
+
+
+
+
+
+
+
+
+
+
   function selectOption(value, forced) {
     var container = this;
     var options = this.data('options');
@@ -17,7 +64,7 @@
         option.append(input);
         var remove = $('<a href="#" data-remove class="token-item-remove">&times;</a>');
         option.append(remove);
-        container.append(option);
+        container.find('[data-token-input]').before(option);
       }
     }
     return this;
@@ -39,25 +86,27 @@
       $(this).removeAttr('name');
       $(this).removeAttr('id');
 
-      var options = [];
-      $(this).find('option').each(function() {
-        options.push({id: $(this).attr('value'), html:$(this).html(), selected:$(this).attr('selected')?true:false});
-      });
-
-      var container = $('<span />', {name: inputName, id: inputId, 'data-token-field':true, 'class':'token-field'});
-      container.data('options', options);
+      var container = $('<span />', {name: inputName, 'data-token-field':true, 'class':'token-field'});
       container.data('inputName', inputName);
       container.data('originalInput', $(this));
+      container.data('optionList', new OptionList);
+
+      var options = [];
+      $(this).find('option').each(function() {
+        container.data('optionList').addOption($(this).attr('value'), $(this).html());
+        options.push({id: $(this).attr('value'), html:$(this).html(), selected:$(this).attr('selected')?true:false});
+      });
+      container.data('options', options);
+
+      var input = $('<input type="text" data-token-input class="token-input" />');
+      input.attr('id', inputId);
+      $(container).append(input);
 
       for (var i=0; len=options.length,i<len; i++) {
         if (options[i].selected) {
           container.token('selectOption', options[i].id, true);
         }
       }
-
-      var input = $('<input type="text" data-token-input class="token-input" />');
-      input.attr('id', inputId);
-      $(container).append(input);
 
       $(this).after(container);
     });
@@ -92,10 +141,12 @@
 
   $(document).on('focus keyup', '[data-token-input]', function() {
     var input = $(this);
-    var field = input.closest('[data-token-field]');
-    var options = field.data('options');
+    var container = input.closest('[data-token-field]');
+    var options = container.data('options');
+    var optionListObj = container.data('optionList');
+    optionListObj.attach(container);
 
-    var optionList = field.find('[data-token-optionList]');
+    var optionList = container.find('[data-token-optionList]');
     if (!optionList.length) {
       optionList = $('<ul />', {'data-token-optionList':true, 'class':'token-optionList'});
       input.after(optionList);
@@ -103,10 +154,6 @@
 
     var lozenge = {
       value: $(this).val(),
-      defaultPrevented: false,
-      preventDefault: function() {
-        lozenge.defaultPrevented = true;
-      },
       createOption: function(value) {
         if (value) {
           var listItem = optionList.find('[data-token-newOption]');
@@ -123,12 +170,21 @@
       },
       addOption: function(option) {
         var listItem = optionList.find('[data-value="'+option.id+'"]');
-          if (!listItem.length) {
-            listItem = $('<li />', {'data-value':option.id, 'data-token-option':true, 'class':'token-option'});
-            if (option.text) { listItem.text(option.text); }
-            if (option.html) { listItem.html(option.html); }
-            optionList.append(listItem);
+        if (!listItem.length) {
+          listItem = $('<li />', {'data-value':option.id, 'data-token-option':true, 'class':'token-option'});
+          if (option.text) { listItem.text(option.text); }
+          if (option.html) { listItem.html(option.html); }
+          optionList.append(listItem);
+        }
+
+        for (var i=0; len=options.length,i<len; i++) {
+          if (options[i].id == option.id) {
+            return;
           }
+        }
+
+        options.push({'id':option.id, 'html':option.html});
+        container.data('options', options);
       },
       addOptions: function(fetchedOptions) {
         for (var i=0; len=fetchedOptions.length, i<len; i++) {
@@ -137,8 +193,9 @@
       }
     }
 
-    field.data('originalInput').trigger('lozenge:fetch', lozenge);
-    if (lozenge.defaultPrevented == false) {
+    var event = $.Event('lozenge:fetch');
+    container.data('originalInput').trigger(event, lozenge);
+    if (event.isDefaultPrevented() === false) {
       lozenge.addOptions(options);
     }
   });
@@ -172,7 +229,8 @@
       }
     }
 
-    container.data('originalInput').trigger('lozenge:store', lozenge);
+    var event = $.Event('lozenge:store');
+    container.data('originalInput').trigger(event, lozenge);
   });
 
 })(jQuery);
